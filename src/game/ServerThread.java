@@ -29,18 +29,12 @@ class ServerThread extends Thread {
 			String inmsg = null;
 			
 			while(true) {
-				//inmsg=in.readLine();
-				//System.out.println("받은 메세지 : " + inmsg);
-				//threadList.size();
-				//if(inmsg.equals("start")) {
-				//	count++;
-					//System.out.println(threadList.size()); // 카운트 누적 확인하기 위해
+
 					if(threadList.size() == 2) {
 						inmsg = "gameStart";
 						sendToAllClients(inmsg);
 						System.out.println(inmsg);
 						break;
-					//}
 				}
 			}
 		} catch (IOException e) {

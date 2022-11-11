@@ -15,7 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-public class ClientUi extends JFrame implements ActionListener {
+public class ClientUi extends JFrame {
 	
 	private Socket socket;
 	String ip;
@@ -35,9 +35,9 @@ public class ClientUi extends JFrame implements ActionListener {
 		setLayout(new BorderLayout());
 		setLocation(500, 300);
 		setResizable(false); // 화면 크기 조절 불가능
+		
 		btnFont = new Font("Koverwatch", Font.PLAIN, 70);
 
-		
 		JTextField tfDAGI = new JTextField("입장 대기 중...!");
 		tfDAGI.setEnabled(false);
 		tfDAGI.setFont(btnFont);
@@ -75,21 +75,6 @@ public class ClientUi extends JFrame implements ActionListener {
 			} catch (IOException e) {		
 				e.printStackTrace();
 			}
-		}
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if(obj == btn) {
-//			try {
-//				String outMsg = "start";
-//				out.write(outMsg + "\n");
-//				out.flush();
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
 		}
 	}
 }
