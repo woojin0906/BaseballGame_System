@@ -1,6 +1,7 @@
 package game;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -12,6 +13,7 @@ import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 public class ClientUi extends JFrame implements ActionListener {
 	
@@ -21,6 +23,7 @@ public class ClientUi extends JFrame implements ActionListener {
 	private JButton btn;
 	private BufferedReader in = null;
 	private BufferedWriter out = null;
+	private Font btnFont;
 	
 	public ClientUi(String ip, int port) {
 		this.ip=ip;
@@ -32,10 +35,14 @@ public class ClientUi extends JFrame implements ActionListener {
 		setLayout(new BorderLayout());
 		setLocation(500, 300);
 		setResizable(false); // 화면 크기 조절 불가능
+		btnFont = new Font("Koverwatch", Font.PLAIN, 70);
+
 		
-//		btn = new JButton("게임 시작");
-//		btn.addActionListener(this);
-//		add(btn, BorderLayout.CENTER);
+		JTextField tfDAGI = new JTextField("입장 대기 중...!");
+		tfDAGI.setEnabled(false);
+		tfDAGI.setFont(btnFont);
+		tfDAGI.setHorizontalAlignment(JTextField.CENTER);
+		add(tfDAGI, BorderLayout.CENTER);
 		
 		setVisible(true);
 	}
