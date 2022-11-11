@@ -128,10 +128,12 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 			listener = new ServerSocket(9999);
 		
 			while(true) {
-				System.out.println("연결을 기다리는 중..");
-
+				System.out.println("연결을 기다리는 중..\n");
+				ta.append("연결을 기다리는 중..\n");
+				
 				socket = listener.accept();
-				System.out.println("연결 성공!");
+				System.out.println("연결 성공!\n");
+				ta.append("연결 성공!\n");
 				
 				receiveThread = new ReceiveThread(socket, name);
 				receiveThread.start();
@@ -145,7 +147,7 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 				socket.close();
 				//listener.close();
 		} catch (IOException e) {
-			System.out.println("클라이언트와 채팅 중 오류 발생");
+			System.out.println("클라이언트와 채팅 중 오류 발생\n");
 			}
 		}
 	}
@@ -250,8 +252,8 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 				}
 				
 				numb=ran[0]+" "+ran[1]+" "+ran[2];//이걸 해준 이유는 그냥 표시하기 위해서이다. 아래에다 그냥 변수안만들고 해도 상관은 없다.
-				System.out.println("서버 숫자 ->"+numb);
-				ta.append("서버 숫자 ->" + numb);
+				System.out.println("서버 숫자 ->" + numb);
+				ta.append("서버 숫자 ->" + numb + "\n");
 				
 			try {
 					
@@ -265,7 +267,7 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 						sendAll("세 수를 입력하세요(ex: 1 2 3)");
 						
 						String inputMsg = in.readLine();
-						ta.append("클라이언트가 입력한 수 -> " + inputMsg);
+						ta.append("클라이언트가 입력한 수 -> " + inputMsg + "\n");
 					
 						StringTokenizer st = new StringTokenizer(inputMsg, " ");
 						
@@ -288,19 +290,19 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 						}
 						
 						String str = strike + " 스트라이크 " + ball + " 볼 (" + oout + " )번째"; 
-						ta.append(str);
+						ta.append(str + "\n");
 						sendAll(str);
 						
 						oout++;
 						if(oout>=10) {
 							sendAll("win");
-							ta.append("서버승리");
+							ta.append("서버승리" + "\n");
 							//System.out.println("서버승리");
 							break;
 						}
 						else if(strike==3) {
 							//System.out.println("서버패배");
-							ta.append("서버패배");
+							ta.append("서버패배" + "\n");
 							sendAll("lose");
 							break;
 						}
@@ -313,13 +315,13 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 				e.printStackTrace();
 			}
 		}
+		
 		private void sendAll (String s) {
 			for(BufferedWriter out : list) {
 				try {
 					out.write(s + "\n");
 					out.flush();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				

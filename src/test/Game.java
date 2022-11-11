@@ -123,7 +123,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 						String outMsg = tfChat.getText();
 						out.write(outMsg + "\n");
 						out.flush();
-
+						ta.append(outMsg);
 						tfChat.setText("");
 						tfChat.requestFocus();
 					} catch (IOException e1) {
@@ -210,13 +210,13 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 			ta.append(inMessage + "\n");
 			
 			while(true) {			
-				ta.append( inMessage + "\n");
-				ta.append("-->");
+				//ta.append( inMessage + "\n");
+				ta.append("-->\n");
 				
 				//String text = tfChat.getText();
 				// 서버로 보냄 text를
 				
-				ta.append(inMessage + "\n");
+				//ta.append(inMessage + "\n");
 				
 				String sel = in.readLine();
 				
