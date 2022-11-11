@@ -9,11 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class login extends JFrame implements ActionListener {
+	private JButton btnServer, btnClient;
+	
 	public static void main(String[] args) {
 		new login();
 	}
-	
-	private JButton btnServer, btnClient;
 	
 	public login() {
 		setTitle("시작 화면");
@@ -37,11 +37,11 @@ public class login extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-			Object obj = e.getSource();
-			if(obj == btnServer) {
-				Server server = new Server();
-			} else if(obj == btnClient) {
-				Client client = new Client();
-			}
+		Object obj = e.getSource();
+		if(obj == btnServer) {
+			Server server = new Server();
+		} else if(obj == btnClient) {
+			Client client = new Client();
+		}
 	}
 }

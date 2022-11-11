@@ -18,7 +18,7 @@ public class ServerUi{
 	private ServerThread serverThread; //클라이언트와 통신할 서버소켓
 	private ServerSocket serverSocket = null;
 	private Socket socket = null;
-	 
+	int count = 0;
 	public ServerUi(int port) {
 		this.port=port;
 	}
@@ -30,7 +30,7 @@ public class ServerUi{
 	          serverSocket = new ServerSocket(port);
 	          System.out.println("연결 기다리는 중....");
 	          
-	          while(true){ // 클라이언트 2명 연결시
+	          while(true){ 
 	        	 
 	            	   socket = serverSocket.accept(); // 클라이언트의 접속을 기다린다.
 	            	   System.out.println("연결 성공");

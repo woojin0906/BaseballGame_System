@@ -33,9 +33,9 @@ public class ClientUi extends JFrame implements ActionListener {
 		setLocation(500, 300);
 		setResizable(false); // 화면 크기 조절 불가능
 		
-		btn = new JButton("게임 시작");
-		btn.addActionListener(this);
-		add(btn, BorderLayout.CENTER);
+//		btn = new JButton("게임 시작");
+//		btn.addActionListener(this);
+//		add(btn, BorderLayout.CENTER);
 		
 		setVisible(true);
 	}
@@ -75,14 +75,14 @@ public class ClientUi extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 		if(obj == btn) {
-			try {
-				String outMsg = "start";
-				out.write(outMsg + "\n");
-				out.flush();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+//			try {
+//				String outMsg = "start";
+//				out.write(outMsg + "\n");
+//				out.flush();
+//			} catch (IOException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
 		}
 	}
 }

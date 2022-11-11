@@ -8,12 +8,12 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ServerThread extends Thread {
+class ServerThread extends Thread {
 	private Socket socket;
 	private ArrayList<ServerThread> threadList;
 	private BufferedReader in = null;
 	private BufferedWriter out = null;
-	int count;
+	int count = 0;
 	
 	public ServerThread(Socket socket, ArrayList<ServerThread> threadList) {
 		this.socket = socket;
@@ -26,24 +26,24 @@ public class ServerThread extends Thread {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			
-			String inmsg =null;
+			String inmsg = null;
 			
 			while(true) {
-				inmsg=in.readLine();
-				System.out.println("받은 메세지: " + inmsg);
-				
-				if(inmsg.equals("start")) {
-					count += 1;
-					System.out.println(count);
-					if(count == 2) {
+				//inmsg=in.readLine();
+				//System.out.println("받은 메세지 : " + inmsg);
+				//threadList.size();
+				//if(inmsg.equals("start")) {
+				//	count++;
+					//System.out.println(threadList.size()); // 카운트 누적 확인하기 위해
+					if(threadList.size() == 2) {
 						inmsg = "gameStart";
 						sendToAllClients(inmsg);
 						System.out.println(inmsg);
-					}
+						break;
+					//}
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}          
@@ -57,6 +57,5 @@ public class ServerThread extends Thread {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }
