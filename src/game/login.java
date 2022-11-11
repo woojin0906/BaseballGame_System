@@ -23,7 +23,6 @@ public class login extends JFrame implements ActionListener {
 		setLocation(500, 200);
 		setResizable(false); // 화면 크기 조절 불가능
 		
-
 		btnServer = new JButton("서버 생성하기");
 		btnServer.addActionListener(this);
 		add(btnServer, BorderLayout.WEST);

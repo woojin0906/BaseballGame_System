@@ -112,18 +112,14 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
-			// 2022-10-23 전우진 게임 화면 채팅창 화면 연결
 
-				// 2022-10-26 허유진 채팅 db 연결
 				if(obj == tfChat || obj == btnChat) {
-//					DBChat dbchat = new DBChat(this);
-//					dbchat.chating("Hi", 0, tfChat.getText());
-
 					try {
 						String outMsg = tfChat.getText();
 						out.write(outMsg + "\n");
 						out.flush();
-						ta.append(outMsg);
+						
+						ta.append("-->" + outMsg + "\n");
 						tfChat.setText("");
 						tfChat.requestFocus();
 					} catch (IOException e1) {
@@ -145,8 +141,6 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-//			DBChat dbchat = new DBChat(this);
-//			dbchat.chating("Hi", 0, tfChat.getText());
 			System.out.println(tfChat.getText());
 		}		
 	}
@@ -206,17 +200,10 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
 			
-			String inMessage = in.readLine();
-			ta.append(inMessage + "\n");
-			
 			while(true) {			
-				//ta.append( inMessage + "\n");
-				ta.append("-->\n");
+				String inMessage = in.readLine();
 				
-				//String text = tfChat.getText();
-				// 서버로 보냄 text를
-				
-				//ta.append(inMessage + "\n");
+				ta.append(inMessage + "\n");
 				
 				String sel = in.readLine();
 				
