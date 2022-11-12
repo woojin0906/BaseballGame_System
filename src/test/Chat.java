@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -48,7 +49,6 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 	private Socket socket;
 	private BufferedReader in;
 	private ReceiveThread receiveThread;
-	private ArrayList<ReceiveThread> threadList = new ArrayList<>();
 	
 	public Chat(String title) {
 
@@ -77,7 +77,8 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 		ta = new JTextArea(7, 20);
 		ta.setLineWrap(true);
 		ta.setEditable(false);
-		ta.setBackground(Color.GRAY);
+		ta.setFont(btnFont);
+		ta.setBackground(Color.WHITE);
 		JScrollPane sp = new JScrollPane(ta, 
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -117,6 +118,9 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 		add(panelSouth, BorderLayout.SOUTH);
 	}
 
+	public JTextArea getTa() {
+		return ta;
+	}
 	
 	public void start() {
 		BufferedReader in = null;
@@ -136,7 +140,7 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 				System.out.println("연결 성공!\n");
 				ta.append("연결 성공!\n");
 				
-				receiveThread = new ReceiveThread(socket, threadList);
+				receiveThread = new ReceiveThread(socket, this);
 				receiveThread.start();
 				}
 			
@@ -152,13 +156,12 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 			}
 		}
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
 
 		if(obj == btnChat) {
-
-			
 		}
 	}
 
@@ -216,229 +219,5 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 		// TODO Auto-generated method stub
 		
 	}
-	class ReceiveThread extends Thread {
-		private ArrayList<ReceiveThread> threadList;
-		
-		Socket socket = null;
-		BufferedReader in = null;
-		BufferedWriter out = null;
-		Random r = new Random();
-		
-		public ReceiveThread (Socket socket, ArrayList<ReceiveThread> threadList) {
-			this.socket = socket;
-			this.threadList=threadList;
-			try {
-				out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		@Override
-		public void run() {
-			int[] ran = new int [3];
-			String numb = null;
-			
-				for(int i=0; i<ran.length; i++) {//i부터 시작해서 ran의 길이까지 i의값을 증가시켰다.
-					ran[i]=r.nextInt(10)+1;//ran배열의 i번째에  랜덤 수를 넣었다.
-					for(int j=0; j<i; j++) {//여기서부터는 중복검사 소스이다.
-						if(ran[i]==ran[j]) {//중복검사소스이다.
-							i--;//같을경우 다시 i를 입력하게끔 할려고 돌아갔다.
-							break;//위에 for문으로 가야되니 다시 돌아갔다.
-						}
-					}
-				}
-				
-				numb=ran[0]+" "+ran[1]+" "+ran[2];//이걸 해준 이유는 그냥 표시하기 위해서이다. 아래에다 그냥 변수안만들고 해도 상관은 없다.
-				System.out.println("서버 숫자 ->" + numb);
-				ta.append("서버 숫자 ->" + numb + "\n");
-				
-				sendAll("야구 게임을 시작합니다.");
-
-					int oout=0;//이걸 준 이유는 총 10번 왔다갔다할경우 서버가 이기게끔 하기 위해서이다.
-					while (true) {//반복시킨 이유는 반복할려고
-						int strike=0;
-						int ball=0;
-						
-						sendAll("세 수를 입력하세요(ex: 1 2 3)");
-						
-						String inputMsg;
-						try {
-							inputMsg = in.readLine();
- 							ta.append("클라이언트가 입력한 수 -> " + inputMsg + "\n");
-							
-							StringTokenizer st = new StringTokenizer(inputMsg, " ");
-							
-							int [] nnum=new int [3];
-							for(int i=0; i<3;i++) {
-								nnum[i]=Integer.parseInt(st.nextToken());//입력받은것
-							}
-							for(int i=0; i<3; i++) {
-								for(int j=0; j<3; j++) {
-									if(ran[i]==nnum[j]) {
-										if(i==j) {
-											strike++;
-										}
-										else {
-											ball++;
-										}
-									}
-								}
-							}
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-
-						
-						String str = strike + " 스트라이크 " + ball + " 볼 (" + oout + " )번째"; 
-						ta.append(str + "\n");
-						sendAll(str);
-						
-						oout++;
-						if(oout>=10) {
-							sendAll("win");
-							ta.append("서버승리" + "\n");
-							System.out.println("서버승리");
-							break;
-						}
-						else if(strike==3) {
-							System.out.println("서버패배");
-							ta.append("서버패배" + "\n");
-							sendAll("lose");
-							break;
-						}
-						else {
-							sendAll("");
-						}
-					}
-		}
-		
-		private void sendAll (String outmsg) {
-			for(ReceiveThread rt : threadList) {
-				try {
-					rt.out.write(outmsg  + "\n");
-					rt.out.flush();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-			}
-		}
-	}
-	
-	
-//	class ReceiveThread extends Thread {
-//		static List<BufferedWriter> list = Collections.synchronizedList(new ArrayList<BufferedWriter>());
-//		
-//		Socket socket = null;
-//		BufferedReader in = null;
-//		BufferedWriter out = null;
-//		Random r = new Random();
-//		
-//		public ReceiveThread (Socket socket) {
-//			this.socket = socket;
-//			try {
-//				out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-//				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//				list.add(out);
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
-//		public void run() {
-//			int[] ran = new int [3];
-//			String numb = null;
-//			
-//				for(int i=0; i<ran.length; i++) {//i부터 시작해서 ran의 길이까지 i의값을 증가시켰다.
-//					ran[i]=r.nextInt(10)+1;//ran배열의 i번째에  랜덤 수를 넣었다.
-//					for(int j=0; j<i; j++) {//여기서부터는 중복검사 소스이다.
-//						if(ran[i]==ran[j]) {//중복검사소스이다.
-//							i--;//같을경우 다시 i를 입력하게끔 할려고 돌아갔다.
-//							break;//위에 for문으로 가야되니 다시 돌아갔다.
-//						}
-//					}
-//				}
-//				
-//				numb=ran[0]+" "+ran[1]+" "+ran[2];//이걸 해준 이유는 그냥 표시하기 위해서이다. 아래에다 그냥 변수안만들고 해도 상관은 없다.
-//				System.out.println("서버 숫자 ->" + numb);
-//				ta.append("서버 숫자 ->" + numb + "\n");
-//				
-//				sendAll("야구 게임을 시작합니다.");
-//
-//					int oout=0;//이걸 준 이유는 총 10번 왔다갔다할경우 서버가 이기게끔 하기 위해서이다.
-//					while (true) {//반복시킨 이유는 반복할려고
-//						int strike=0;
-//						int ball=0;
-//						
-//						sendAll("세 수를 입력하세요(ex: 1 2 3)");
-//						
-//						String inputMsg;
-//						try {
-//							inputMsg = in.readLine();
-// 							ta.append("클라이언트가 입력한 수 -> " + inputMsg + "\n");
-//							
-//							StringTokenizer st = new StringTokenizer(inputMsg, " ");
-//							
-//							int [] nnum=new int [3];
-//							for(int i=0; i<3;i++) {
-//								nnum[i]=Integer.parseInt(st.nextToken());//입력받은것
-//							}
-//							for(int i=0; i<3; i++) {
-//								for(int j=0; j<3; j++) {
-//									if(ran[i]==nnum[j]) {
-//										if(i==j) {
-//											strike++;
-//										}
-//										else {
-//											ball++;
-//										}
-//									}
-//								}
-//							}
-//						} catch (IOException e) {
-//							e.printStackTrace();
-//						}
-//
-//						
-//						String str = strike + " 스트라이크 " + ball + " 볼 (" + oout + " )번째"; 
-//						ta.append(str + "\n");
-//						sendAll(str);
-//						
-//						oout++;
-//						if(oout>=10) {
-//							sendAll("win");
-//							ta.append("서버승리" + "\n");
-//							//System.out.println("서버승리");
-//							break;
-//						}
-//						else if(strike==3) {
-//							//System.out.println("서버패배");
-//							ta.append("서버패배" + "\n");
-//							sendAll("lose");
-//							break;
-//						}
-//						else {
-//							sendAll("");
-//						}
-//					}
-//		}
-//		
-//		private void sendAll (String s) {
-//			for(BufferedWriter out : list) {
-//				try {
-//					out.write(s + "\n");
-//					out.flush();
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
-//				
-//			}
-//		}
-//	}
-
-	
 }
 

@@ -57,17 +57,36 @@ public class ClientUi extends JFrame {
 		
 		setVisible(true);
 		
-		ClientThread clientThread = new ClientThread(socket, "1");
+		ClientThread clientThread = new ClientThread(socket, "1 1 1");
 		clientThread.run();
 		
 		inThread inThread = new inThread(socket, this);
 		inThread.run();
-		//System.out.println("test2222");
-		if(inMessage.equals("2")) {
-			this.dispose();
-			TcpClient tcpClient = new TcpClient("채팅", socket);
-			System.out.println(inMessage);
+		
+		
+		
+		while(true) {
+			try {
+				if(inMessage.equals("2 2 2")) {
+				//	System.out.println(inMessage);
+					break;
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
+		
+		}
+		this.dispose();
+		Thread thread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				TcpClient tcpClient = new TcpClient("채팅", socket);
+			}
+		});
+		thread.start();
+		
+		//System.out.println(inMessage);
 		//System.out.println(inMessage);
 	}
 	public void msg(String inMessage) {

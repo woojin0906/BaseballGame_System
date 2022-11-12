@@ -20,10 +20,11 @@ public class inThread extends Thread {
 	@Override
 	public void run() {
 		try {
+			//while(true) {
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			String inMessage = in.readLine();
 			clientUi.msg(inMessage);
-			System.out.println(inMessage);
+			//System.out.println(inMessage);
 			
 //			if(inMessage.equals("win")) {
 //				ta = tcpClient.getTa();
@@ -36,6 +37,7 @@ public class inThread extends Thread {
 //				ta.append("클라이언트가 이겼다.\n");
 //				break;
 //			}
+			//}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

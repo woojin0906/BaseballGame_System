@@ -20,7 +20,6 @@ public class ClientThread extends Thread {
 			PrintStream out = new PrintStream(socket.getOutputStream());
 			
 			out.println(outMsg);
-			//System.out.println(outMsg);
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
