@@ -1,11 +1,13 @@
 package game;
-
+// 클라이언트 채팅창
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.BufferedReader;
@@ -14,7 +16,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -25,6 +30,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import test.Chat;
+import test.ClientThread;
+import test.Game;
+
 import java.io.DataInputStream;
 
 import java.io.DataOutputStream;
@@ -37,31 +46,45 @@ import java.net.Socket;
 
 import java.util.Scanner;
 
+public class TcpClient extends JFrame implements ActionListener, MouseListener, KeyListener {
 
-
-public class TcpClient extends JFrame implements ActionListener {
-
-	Scanner sc = new Scanner(System.in);
-	private BufferedReader in = null;
-	private BufferedWriter out = null;
+//	public static void main(String[] args) {
+//		TcpClient tcpClient = new TcpClient("클라이언트");
+//		tcpClient.setSocket();
+//	}
+//	
+	private String ID, name;
+	private Font font, btnFont;
 	private JTextField tfChat;
 	private JButton btnChat;
+	private String id, comment;
 	private JTextArea ta;
+	private Chat chat;
+	private PrintStream out;
+	private Socket socket;
+	private BufferedReader in;
+	String ip;
+	int port;
 	
-	public TcpClient() {
-		setTitle("야구게임 클라이언트 테스트");
+	public TcpClient(String title, Socket socket) {
+		this.socket=socket;
+		
+		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(780, 550);
+		setSize(350, 500);
 		setLayout(new BorderLayout());
-		setLocation(500, 300);
+		setLocation(500, 150);
 		setResizable(false); // 화면 크기 조절 불가능
+		
+		btnFont = new Font("Koverwatch", Font.PLAIN, 16);
+		font = new Font("Koverwatch", Font.PLAIN, 14);
 		
 		setCenter();
 		setSouth();
 		
 		setVisible(true);
+
 	}
-	
 	private void setCenter() {
 		// 채팅창 채팅 표시 패널
 		JPanel panelCenter = new JPanel();
@@ -71,7 +94,8 @@ public class TcpClient extends JFrame implements ActionListener {
 		ta = new JTextArea(7, 20);
 		ta.setLineWrap(true);
 		ta.setEditable(false);
-		ta.setBackground(Color.GRAY);
+		ta.setFont(btnFont);
+		ta.setBackground(Color.WHITE);
 		JScrollPane sp = new JScrollPane(ta, 
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -91,15 +115,17 @@ public class TcpClient extends JFrame implements ActionListener {
 		// 채팅창 입력창 텍스트 필드 출력
 		tfChat = new JTextField("텍스트를 입력하세요.");
 		tfChat.setBounds(10, 7, 235, 35);
-		//tfChat.setFont(btnFont);
+		tfChat.setFont(btnFont);
 	//	tfChat.setBorder(BorderFactory.createEmptyBorder());
 		tfChat.setBackground(Color.LIGHT_GRAY);
 		tfChat.addActionListener(this);
+		tfChat.addMouseListener(this);
+		tfChat.addKeyListener(this);
 		panelSouth.add(tfChat);
 		
 		// 채팅창 전송 버튼 출력
 		btnChat = new JButton("전송");
-		//btnChat.setFont(btnFont);
+		btnChat.setFont(btnFont);
 		btnChat.setForeground(Color.WHITE);
 		btnChat.setBackground(Color.DARK_GRAY);
 		btnChat.setBounds(260, 10, 60, 30);
@@ -108,107 +134,203 @@ public class TcpClient extends JFrame implements ActionListener {
 		
 		add(panelSouth, BorderLayout.SOUTH);
 	}
-	
-	public void start() {
+//	public void setSocket() {
+//		try {
+//			socket = new Socket(ip, port);
+//			System.out.println("서버 연결 성공!!");
+//			
+//			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//			out = new PrintStream(socket.getOutputStream());
+//			
+//			while(true) {
+//				String inMessage = in.readLine();
+//				ta.append(inMessage);
+//				System.out.println(inMessage);
+//				
+//				if(inMessage.equals("win")) {
+//					ta.append("클라이언트가 졌다.\n");
+//					break;
+//				}
+//				
+//				if(inMessage.equals("lose")) {
+//					ta.append("클라이언트가 이겼다.\n");
+//					break;
+//				}
+//			}
+//			ta.append("연결을 종료합니다.\n");
+//		} catch (Exception e) {
+//			System.out.println("서버 생성이 되지 않았습니다."); // 옵션팬으로 바꿔서 대화창 띄우기
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				out.close();
+//				in.close();
+//				socket.close();	
+//				
+//			} catch (IOException e) {		
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+//	public void setSocket() {
+//		try {
+//			socket = new Socket(ip, port);
+//			System.out.println("서버 연결 성공!!");
+//			
+//			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+//			
+//			while(true) {
+//				String inMessage = in.readLine();
+//				System.out.println(inMessage);
+//				
+//				if(inMessage.equals("gameStart")) {
+//					tcpClient = new TcpClient("클라이언트", ip, port);
+//					break;
+//				}
+//				
+//				if(inMessage.equals("win")) {
+//					ta = tcpClient.getTa();
+//					ta.append("클라이언트가 졌다.\n");
+//					break;
+//				}
+//				
+//				if(inMessage.equals("lose")) {
+//					JTextArea ta = tcpClient.getTa();
+//					ta.append("클라이언트가 이겼다.\n");
+//					break;
+//				}
+//			}
+//			ta.append("연결을 종료합니다.\n");
+//		} catch (Exception e) {
+//			System.out.println("서버 생성이 되지 않았습니다."); // 옵션팬으로 바꿔서 대화창 띄우기
+//			e.printStackTrace();
+//		} finally {
+//			try {
+//				out.close();
+//				in.close();
+//				socket.close();	
+//				
+//			} catch (IOException e) {		
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+//	public void setSocket() {
+//		
+//		try {			
+//			
+//			socket = new Socket(ip, port);	
+//			
+//			ta.append("서버 연결 완료!\n");
+//			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//			out = new PrintStream(socket.getOutputStream());
+//			
+//			while(true) {			
+//				String inMessage = in.readLine();
+//				
+//				ta.append(inMessage + "\n");
+//				
+//				
+//				if(inMessage.equals("win")) {
+//					ta.append("클라이언트가 졌다.\n");
+//					break;
+//				}
+//				
+//				if(inMessage.equals("lose")) {
+//					ta.append("클라이언트가 이겼다.\n" );
+//					break;
+//				}
+//			}
+//			ta.append("연결을 종료합니다.\n");
+//		} catch (IOException e) {
+//			System.out.println("서버 생성이 되지 않았습니다");
+//			//e.printStackTrace();
+//		} finally {
+//			try {
+//				out.close();
+//				in.close();
+//				socket.close();	
+//				
+//			} catch (IOException e) {		
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 
-		try {
-
-			System.out.print("서버 IP입력 : ");
-			// String serverIP = sc.next();
-
-			String serverIp = "localhost";
-
-			System.out.println("서버에 연결중입니다....." + serverIp);
-			ta.append("서버에 연결중입니다....." + serverIp + "\n");
-			// 소켓생성
-
-			Socket so = new Socket(serverIp, 7777);
-
-			System.out.println("클라이언트 소켓을 생성 했습니다.");
-			ta.append("클라이언트 소켓을 생성 했습니다." + "\n");
-			// 서버에서 메세지 받아야 한다.
-
-			InputStream in = so.getInputStream();
-
-			DataInputStream dis = new DataInputStream(in);
-
-			OutputStream out = so.getOutputStream();// 만들어진 소켓의 아웃풋스트림넣겠다.
-
-			DataOutputStream dos = new DataOutputStream(out);
-
-			System.out.println(dis.readUTF());
-			ta.append(dis.readUTF() + "\n");
-			//System.out.println("종규받은것 " + dis.readUTF());
-
-
-			while (true) {
-
-				//ystem.out.println(dis.readUTF());
-				ta.append(dis.readUTF() + "\n");
-
-				//System.out.print("내가 입력한거 : ");
-
-				//System.out.print("-->");
-				ta.append("-->" + "\n");
-				
-				String text = sc.nextLine();
-
-				dos.writeUTF(text);//어떤건지 보내는것
-
-
-				//System.out.println(dis.readUTF());
-				ta.append(dis.readUTF() + "\n");
-				
-				String sel =dis.readUTF();//스트라이크 볼 받는것
-
-
-				if(sel.equals("win")) {
-					//System.out.println("클라이언트가 졌다.");
-					ta.append("클라이언트가 졌다." + "\n");
-					break;
-
-				}
-
-				if(sel.equals("lose")) {
-
-					//System.out.println("클라이언트가 이겼다.");
-					ta.append("클라이언트가 이겼다." + "\n");
-					break;
-				}
-			}
-
-			//System.out.println("연결종료합니다.");
-			ta.append("연결종료합니다." + "\n");
-			dis.close();
-			dos.close();
-			so.close();
-
-
-		} catch (Exception e) {
-
-		}
-
+	public JTextArea getTa() {
+		return ta;
 	}
-	public static void main(String[] args) {
-		TcpClient tc = new TcpClient();
-		tc.start();
+	@Override
+	public void actionPerformed(ActionEvent e) {
+			Object obj = e.getSource();
+
+				if(obj == tfChat || obj == btnChat) {
+					String outMsg = tfChat.getText();
+					
+					ClientThread clientThread = new ClientThread(socket, outMsg);
+					clientThread.start();
+					ta.append("-->" + outMsg + "\n");
+					tfChat.setText("");
+					tfChat.requestFocus();
+			} 
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+			System.out.println(tfChat.getText());
+		}		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
 		Object obj = e.getSource();
-		if(obj == btnChat || obj == tfChat) {			
-			try {
-				String outMsg = tfChat.getText();
-				out.write(outMsg + "\n");
-				out.flush();
-				
-//				ta.append("[클라이언트] " + outMsg + "\n");
-				tfChat.setText("");
-				tfChat.requestFocus();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
+		if(obj == tfChat) {
+			tfChat.setText("");
+		}			
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

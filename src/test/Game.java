@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
 import java.net.Socket;
 
 import javax.swing.JButton;
@@ -30,6 +31,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		Game g = new Game("클라이언트");
 		g.setSocket();
 	}
+	
 	private String ID, name;
 	private Font font, btnFont;
 	private JTextField tfChat;
@@ -37,10 +39,9 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	private String id, comment;
 	private JTextArea ta;
 	private Chat chat;
-	private BufferedWriter out;
+	private PrintStream out;
 	private Socket socket;
 	private BufferedReader in;
-	//private ReceiveThread receiveThread;
 	public Game(String title) {
 
 		setTitle(title);
@@ -68,7 +69,8 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		ta = new JTextArea(7, 20);
 		ta.setLineWrap(true);
 		ta.setEditable(false);
-		ta.setBackground(Color.GRAY);
+		ta.setFont(btnFont);
+		ta.setBackground(Color.WHITE);
 		JScrollPane sp = new JScrollPane(ta, 
 				JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -114,22 +116,15 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 			Object obj = e.getSource();
 
 				if(obj == tfChat || obj == btnChat) {
-					try {
-						String outMsg = tfChat.getText();
-						out.write(outMsg + "\n");
-						out.flush();
-						
-						ta.append("-->" + outMsg + "\n");
-						tfChat.setText("");
-						tfChat.requestFocus();
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
-
+					String outMsg = tfChat.getText();
+					
+					ClientThread clientThread = new ClientThread(socket, outMsg);
+					clientThread.start();
+					ta.append("-->" + outMsg + "\n");
+					tfChat.setText("");
+					tfChat.requestFocus();
 			} 
-			
 	}
-
 
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -190,7 +185,6 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	}
 	
 	public void setSocket() {
-			
 		
 		try {			
 			
@@ -198,27 +192,25 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 			
 			ta.append("서버 연결 완료!\n");
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+			out = new PrintStream(socket.getOutputStream());
 			
 			while(true) {			
 				String inMessage = in.readLine();
 				
 				ta.append(inMessage + "\n");
 				
-				String sel = in.readLine();
 				
-				if(sel.equals("win")) {
+				if(inMessage.equals("win")) {
 					ta.append("클라이언트가 졌다.\n");
 					break;
 				}
 				
-				if(sel.equals("lose")) {
+				if(inMessage.equals("lose")) {
 					ta.append("클라이언트가 이겼다.\n" );
 					break;
 				}
 			}
 			ta.append("연결을 종료합니다.\n");
-			
 		} catch (IOException e) {
 			System.out.println("서버 생성이 되지 않았습니다");
 			//e.printStackTrace();
@@ -232,10 +224,6 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 				e.printStackTrace();
 			}
 		}
-	}
-
-	public BufferedWriter getOut() {
-		return out;
 	}
 	
 }

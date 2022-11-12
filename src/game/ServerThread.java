@@ -1,5 +1,5 @@
 package game;
-
+// 서버 인원 수 제한
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -13,11 +13,12 @@ class ServerThread extends Thread {
 	private ArrayList<ServerThread> threadList;
 	private BufferedReader in = null;
 	private BufferedWriter out = null;
-	int count = 0;
+	TcpServer tcpServer;
 	
-	public ServerThread(Socket socket, ArrayList<ServerThread> threadList) {
+	public ServerThread(Socket socket, ArrayList<ServerThread> threadList, TcpServer tcpServer) {
 		this.socket = socket;
 		this.threadList=threadList;
+		this.tcpServer=tcpServer;
 	}
 
 	@Override
@@ -29,12 +30,12 @@ class ServerThread extends Thread {
 			String inmsg = null;
 			
 			while(true) {
-
+					System.out.println(threadList.size());
 					if(threadList.size() == 2) {
 						inmsg = "gameStart";
 						sendToAllClients(inmsg);
-						System.out.println(inmsg);
-						break;
+						ReceiveThread receiveThread = new ReceiveThread(socket, tcpServer);
+						
 				}
 			}
 		} catch (IOException e) {
