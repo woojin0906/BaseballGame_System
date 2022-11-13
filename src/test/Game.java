@@ -17,9 +17,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -117,12 +119,11 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 
 				if(obj == tfChat || obj == btnChat) {
 					String outMsg = tfChat.getText();
-					
-					ClientThread clientThread = new ClientThread(socket, outMsg);
-					clientThread.start();
-					ta.append("-->" + outMsg + "\n");
-					tfChat.setText("");
-					tfChat.requestFocus();
+						ClientThread clientThread = new ClientThread(socket, outMsg);
+						clientThread.start();
+						ta.append("-->" + outMsg + "\n");
+						tfChat.setText("");
+						tfChat.requestFocus();
 			} 
 	}
 
@@ -200,17 +201,25 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 				ta.append(inMessage + "\n");
 				
 				
-				if(inMessage.equals("win")) {
+				if(inMessage.equals("lose")) {
 					ta.append("클라이언트가 졌다.\n");
 					break;
 				}
 				
-				if(inMessage.equals("lose")) {
+				if(inMessage.equals("win")) {
 					ta.append("클라이언트가 이겼다.\n" );
 					break;
 				}
 			}
-			ta.append("연결을 종료합니다.\n");
+			
+			ta.append("연결을 종료.\n");
+			ta.append("10초 후 자동으로 종료됩니다.\n");
+			
+			String[] end = {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"};
+			for(int i=0; i<10; i++) {
+				ta.append(end[i]);
+			}
+			this.dispose();
 		} catch (IOException e) {
 			System.out.println("서버 생성이 되지 않았습니다");
 			//e.printStackTrace();

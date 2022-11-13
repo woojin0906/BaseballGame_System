@@ -82,6 +82,9 @@ public class TcpClient extends JFrame implements ActionListener, MouseListener, 
 		setCenter();
 		setSouth();
 		
+		inThread in = new inThread(socket, this);
+		in.run();
+		
 		setVisible(true);
 
 	}

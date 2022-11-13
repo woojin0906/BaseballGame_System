@@ -39,7 +39,6 @@ public class ReceiveThread extends Thread {
 	@Override
 	public void run() {
 
-		
 		while(in != null) {
 					String inputMsg;
 					try {
@@ -84,8 +83,8 @@ public class ReceiveThread extends Thread {
 											int strike=0;
 											int ball=0;
 
-											//sendAll("----------------------------");
-												//sendAll("세 수를 입력하세요(ex: 1 2 3)");
+											sendAll("----------------------------");
+												sendAll("세 수를 입력하세요(ex: 1 2 3)");
 													
 													//ta.append("클라이언트가 입력한 수 -> " + inputMsg + "\n");
 													
@@ -112,8 +111,6 @@ public class ReceiveThread extends Thread {
 													sendAll(str);
 											}
 											
-						
-						
 						}
 					} catch (IOException e) {
 						e.printStackTrace();
