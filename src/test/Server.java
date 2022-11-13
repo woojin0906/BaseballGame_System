@@ -39,8 +39,8 @@ import javax.swing.SwingUtilities;
 			mainFont = new Font("Koverwatch", Font.PLAIN, 20);
 
 			LeftPanel();
-			//DBRank db = new DBRank(); 랭킹 디비 붙이기
-			//db.UserName(ID ,UserName);
+			DBRank db = new DBRank(ID); //랭킹 디비 붙이기
+			db.UserName(ID ,UserName);
 
 			setVisible(true);
 	
@@ -158,8 +158,8 @@ import javax.swing.SwingUtilities;
 			Object obj = e.getSource();
 			// 2022-10-26 전우진 각 프레임 연결
 			if(obj == serverroom1) {
-				Game game = new Game("클라이언트 게임 시작 화면");
-				
+				Game game = new Game("클라이언트 게임 시작 화면",ID);
+				System.out.println(ID);
 				Thread thread = new Thread(new Runnable() {
 					
 					@Override
@@ -183,7 +183,7 @@ import javax.swing.SwingUtilities;
 				this.dispose();
 			}
 			else if(obj == Rank_btn) {
-				Rank rk = new Rank("랭킹 화면");
+				Rank rk = new Rank("랭킹 화면", ID);
 				rk.setLocationRelativeTo(this);
 				this.dispose();
 			}

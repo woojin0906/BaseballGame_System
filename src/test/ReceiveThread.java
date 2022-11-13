@@ -24,10 +24,14 @@ public class ReceiveThread extends Thread {
 	TcpServer tcpServer;
 	Chat chat;
 	Random r = new Random();
+	String ID;
+	int countwin;
+	int tier;
 	
-	public ReceiveThread (Socket socket, Chat chat) {
+	public ReceiveThread (Socket socket, Chat chat, String ID) {
 		this.socket = socket;
 		this.chat = chat;
+		this.ID = ID;
 		
 		try {
 			out = new PrintWriter(socket.getOutputStream());
@@ -119,6 +123,11 @@ public class ReceiveThread extends Thread {
 						System.out.println("서버패배");
 						ta.append("서버패배" + "\n");
 						sendAll("win");
+						
+						System.out.println(ID);
+						DBRank db = new DBRank(ID);
+						db.UpdateCountTier(ID);
+						System.out.println("해당아이디 업데이트 완료");
 						break;
 					}
 					else {

@@ -32,12 +32,12 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class Chat extends JFrame implements ActionListener, MouseListener, KeyListener  {
-	
-	public static void main(String[] args) {
-		Chat c = new Chat("서버");
-		c.start();
-	}
-	
+//	
+//	public static void main(String[] args) {
+//		Chat c = new Chat("서버");
+//		c.start();
+//	}
+//	
 	private String ID, name;
 	private Font font, btnFont;
 	private JTextField tfChat;
@@ -50,8 +50,8 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 	private BufferedReader in;
 	private ReceiveThread receiveThread;
 	
-	public Chat(String title) {
-
+	public Chat(String title, String ID) {
+		this.ID =ID;
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(350, 500);
@@ -140,7 +140,7 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 				System.out.println("연결 성공!\n");
 				ta.append("연결 성공!\n");
 				
-				receiveThread = new ReceiveThread(socket, this);
+				receiveThread = new ReceiveThread(socket, this,"ujin7339");
 				receiveThread.start();
 				}
 			

@@ -186,6 +186,15 @@ public class dbInfo {
 							//입력한 비밀번호와 DB에 저장된 비밀번호가 일치하는지 검증
 							if(pw.equals(inputPw)) {
 								Server server = new Server("대기창", id, nickName);
+								Thread thread = new Thread(new Runnable() {
+
+									@Override
+									public void run() {
+										Chat c = new Chat("서버", id);
+										c.start();
+									}
+								});
+								thread.start();
 								frame.dispose();
 								
 							} else {

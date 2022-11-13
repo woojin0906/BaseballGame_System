@@ -30,7 +30,7 @@ public class Login2 extends JFrame implements ActionListener, MouseListener, Key
 	private JTextField tfId;
 	private JPasswordField pfPw;
 	private dbInfo lgDB;
-	private String result;
+	private String result, ID;
 	private Color blue, skyBlue;
 
 	public static void main(String[] args) {
@@ -201,7 +201,7 @@ public class Login2 extends JFrame implements ActionListener, MouseListener, Key
 					
 					@Override
 					public void run() {
-						Chat c = new Chat("서버");
+						Chat c = new Chat("서버", ID);
 						c.start();
 					}
 				});

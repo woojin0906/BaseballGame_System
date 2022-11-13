@@ -29,10 +29,10 @@ import javax.swing.JTextField;
 
 public class Game extends JFrame implements ActionListener, MouseListener, KeyListener {
 	
-	public static void main(String[] args) {
-		Game g = new Game("클라이언트");
-		g.setSocket();
-	}
+//	public static void main(String[] args) {
+//		Game g = new Game("클라이언트",null);
+//		g.setSocket();
+//	}
 	
 	private String ID, name;
 	private Font font, btnFont;
@@ -44,8 +44,10 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	private PrintStream out;
 	private Socket socket;
 	private BufferedReader in;
-	public Game(String title) {
-
+	
+	
+	public Game(String title, String ID) {
+		this.ID = ID;
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(350, 500);

@@ -24,19 +24,21 @@ import javax.swing.table.TableModel;
 
 public class Rank extends JFrame implements MouseListener{
 
-	private String[] title = {"닉네임", "티어", "이긴횟수"};
+	private String[] title = {"닉네임", "누적 점수", "이긴횟수"};
 	private String[][] datas = new String[0][3];
 	private DefaultTableModel model = new DefaultTableModel(datas,title);
 	private JTable table = new JTable(model);
 	private JScrollPane ScrollPane;
 	private int count;
 	private Color blue, skyBlue;
+	private static String ID;
 	
 	public DefaultTableModel getModel() {
 		return model;
 	}
 	
-	public Rank(String title) {
+	public Rank(String title, String ID) {
+		this.ID = ID;
 		setTitle(title);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(300, 300);
@@ -56,25 +58,12 @@ public class Rank extends JFrame implements MouseListener{
 		UpPanel.add(lbltitle);
 		add(UpPanel, BorderLayout.NORTH);
 		
-		RankInfo();
 		RankTable();
-		//DBRank dbrank = new DBRank();
-		//dbrank.showRank(this, count);
+		DBRank dbrank = new DBRank(ID);
+		dbrank.showRank(this, count);
 		
 		setVisible(true);
 
-	}
-	//왼쪽 랭킹 정보에 대한 코드
-	private void RankInfo() {
-		JPanel RankInfo_Panel = new JPanel();
-		RankInfo_Panel.setLayout(null);
-		RankInfo_Panel.setPreferredSize(new Dimension(200, 600));
-		RankInfo_Panel.setBackground(skyBlue);
-		JTextArea RankInfo_TextArea = new JTextArea("\t안뇽");
-		RankInfo_TextArea.setFont(new Font("Koverwatch", Font.PLAIN, 15));
-		RankInfo_TextArea.setBounds(20, 0, 160, 465);
-		RankInfo_Panel.add(RankInfo_TextArea);
-		add(RankInfo_Panel,BorderLayout.WEST);
 	}
 	//오른쪽 랭킹 테이블에 대한 코드
 	private void RankTable() {
@@ -115,15 +104,15 @@ public class Rank extends JFrame implements MouseListener{
 		
 		ScrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		ScrollPane.setBounds(0, 0, 190, 465);
+		ScrollPane.setBounds(27, 0, 350, 465);
 		
 		RankTable_Panel.add(ScrollPane);
-		add(RankTable_Panel, BorderLayout.EAST);
+		add(RankTable_Panel, BorderLayout.CENTER);
 	}
 	
 	
 	public static void main(String[] args) {
-		Rank sv = new Rank("랭킹");
+		Rank sv = new Rank("랭킹",ID);
 	}
 	@Override
 	public void mouseClicked(MouseEvent e) {
