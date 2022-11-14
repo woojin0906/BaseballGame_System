@@ -115,7 +115,7 @@ public class PwCheck extends JFrame implements ActionListener, MouseListener, Ke
 			Object obj = e.getSource();
 			// 2022-10-26 전우진 기능 구현
 			if(obj == btnCancel) {
-				Login2 lg = new Login2();
+				Login lg = new Login();
 				lg.setLocationRelativeTo(this);
 				this.dispose();
 			} else if(obj == btnIdSearch) {

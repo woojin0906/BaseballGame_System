@@ -23,7 +23,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 
-public class Login2 extends JFrame implements ActionListener, MouseListener, KeyListener{
+public class Login extends JFrame implements ActionListener, MouseListener, KeyListener{
 	
 	private Font font, btnFont, loginFont;
 	private JButton btnJoin, btnSearch, btnLogin, btnCall;
@@ -35,11 +35,11 @@ public class Login2 extends JFrame implements ActionListener, MouseListener, Key
 
 	public static void main(String[] args) {
 		
-		Login2 login = new Login2();
+		Login login = new Login();
 	}
 
 
-	public Login2() {
+	public Login() {
 		setTitle("로그인 화면");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(780, 550);

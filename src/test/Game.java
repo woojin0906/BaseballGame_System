@@ -49,7 +49,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	public Game(String title, String ID) {
 		this.ID = ID;
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(350, 500);
 		setLayout(new BorderLayout());
 		setLocation(500, 150);
@@ -205,23 +205,22 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 				
 				if(inMessage.equals("lose")) {
 					ta.append("클라이언트가 졌다.\n");
+					ta.append("연결을 종료.\n");
+					JOptionPane.showMessageDialog(this, "패배ㅠㅠㅠ", "결과", JOptionPane.INFORMATION_MESSAGE);
 					break;
+					
 				}
 				
 				if(inMessage.equals("win")) {
 					ta.append("클라이언트가 이겼다.\n" );
+					ta.append("연결을 종료.\n");
+					JOptionPane.showMessageDialog(this, "승리!!!", "결과", JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}
 			}
-			
-			ta.append("연결을 종료.\n");
-			ta.append("10초 후 자동으로 종료됩니다.\n");
-			
-			String[] end = {"10", "9", "8", "7", "6", "5", "4", "3", "2", "1"};
-			for(int i=0; i<10; i++) {
-				ta.append(end[i]);
-			}
 			this.dispose();
+			
+			
 		} catch (IOException e) {
 			System.out.println("서버 생성이 되지 않았습니다");
 			//e.printStackTrace();

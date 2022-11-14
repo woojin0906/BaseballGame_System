@@ -141,7 +141,7 @@ public class dbInfo {
 
 							if(inputEmail.equals(email)) {
 								JOptionPane.showMessageDialog(ic, "아이디는 " + inputId + "입니다." , "아이디 찾기", JOptionPane.INFORMATION_MESSAGE);
-								Login2 lg = new Login2();
+								Login lg = new Login();
 								lg.setLocationRelativeTo(ic);
 								ic.dispose();
 							}
@@ -169,7 +169,7 @@ public class dbInfo {
 				}
 				
 				//로그인 검증, id값 돌려쓰기 위해서 String으로 id 리턴
-				public void loginSelect(Login2 frame, String inputId, String inputPw, String name) {
+				public void loginSelect(Login frame, String inputId, String inputPw, String name) {
 					String id = inputId;
 					String nickName = name;
 					
@@ -264,9 +264,8 @@ public class dbInfo {
 						result += ""+ch+"";
 					}
 					
-					String sqlUpdate = "update TCP_user set pw = '" + result + "' where id = '" + id + "'";
 					try {
-						statement.executeUpdate(sqlUpdate);
+						statement.executeUpdate("update TCP_user set pw = '" + result + "' where id = '" + id + "'");
 					} catch (SQLException e) {
 						e.printStackTrace();
 					} finally {

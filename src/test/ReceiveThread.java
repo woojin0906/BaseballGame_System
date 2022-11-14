@@ -48,7 +48,7 @@ public class ReceiveThread extends Thread {
 		String serverNum = null;
 		
 			for(int i=0; i<randomNum.length; i++) {//i부터 시작해서 ran의 길이까지 i의값을 증가시켰다.
-				randomNum[i]=r.nextInt(10)+1;//ran배열의 i번째에  랜덤 수를 넣었다.
+				randomNum[i]=r.nextInt(9)+1;//ran배열의 i번째에  랜덤 수를 넣었다.
 				for(int j=0; j<i; j++) {//여기서부터는 중복검사 소스이다.
 					if(randomNum[i]==randomNum[j]) {//중복검사소스이다.
 						i--;//같을경우 다시 i를 입력하게끔 할려고 돌아갔다.
@@ -113,10 +113,11 @@ public class ReceiveThread extends Thread {
 					sendAll(resultMsg);
 
 					count++;
-					if(count>=10) {
-						sendAll("lose");
-						ta.append("서버승리" + "\n");
+					if(count>=9) {
 						System.out.println("서버승리");
+						ta.append("서버승리" + "\n");
+						sendAll("lose");
+						
 						break;
 					}
 					else if(strike==3) {

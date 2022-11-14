@@ -140,7 +140,7 @@ public class Chat extends JFrame implements ActionListener, MouseListener, KeyLi
 				System.out.println("연결 성공!\n");
 				ta.append("연결 성공!\n");
 				
-				receiveThread = new ReceiveThread(socket, this,"ujin7339");
+				receiveThread = new ReceiveThread(socket, this, ID);
 				receiveThread.start();
 				}
 			

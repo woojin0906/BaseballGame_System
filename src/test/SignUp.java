@@ -196,7 +196,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener{
 												db = new dbInfo();
 												db.infoInsert(SignUp_textfield_id.getText(), SignUp_pw.getText(), SignUp_textfield_Nickname.getText(), SignUp_textfield_Email.getText(), count);
 												JOptionPane.showMessageDialog(this, "회원가입이 완료 되었습니다");
-												Login2 lg = new Login2();
+												Login lg = new Login();
 												lg.setLocationRelativeTo(this);
 												this.dispose();
 										} else {

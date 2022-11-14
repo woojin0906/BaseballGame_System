@@ -173,7 +173,7 @@ import javax.swing.SwingUtilities;
 					
 			}
 			else if(obj == logout_btn) {
-				Login2 lg = new Login2();
+				Login lg = new Login();
 				lg.setLocationRelativeTo(this);
 				this.dispose();
 			}
