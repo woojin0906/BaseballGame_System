@@ -41,7 +41,7 @@ public class dbInfo {
 		// 2022-10-26 회원가입 db 연결
 		// 회원가입 할 때 텍스트필드에서 값 긁어와서 DB에 던지기
 		public void infoInsert(String id, String pw, String nick, String email, int count) {
-			String sqlInsert = "insert into TCP_user (id, pw, email, name, count)"
+			String sqlInsert = "insert into TCP_user (id, pw, email, name, countwin)"
 					+ " values('" + id + "', '" + pw + "', '" + email + "', '" + nick + "','" + count + "')";
 		
 			try {
