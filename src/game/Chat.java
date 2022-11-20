@@ -1,5 +1,5 @@
 package game;
-
+// 서버 소켓 연결
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

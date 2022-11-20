@@ -1,5 +1,6 @@
 package db;
-//전우진 MySQL 연동
+// 전우진 MySQL 연동
+// 회원정보
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import game.Socket;
+import game.Chat;
 import game.Login;
 import game.Server;
 import user.IdCheck;
@@ -197,7 +198,7 @@ public class dbInfo {
 
 									@Override
 									public void run() {
-										Socket c = new Socket(id);
+										Chat c = new Chat(id);
 										c.start();
 									}
 								});

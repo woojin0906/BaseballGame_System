@@ -1,5 +1,5 @@
 package user;
-
+// 마이페이지
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

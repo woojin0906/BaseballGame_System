@@ -1,5 +1,5 @@
 package game;
-
+// 소켓 연결 후 서버 게임
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,13 +21,13 @@ public class ReceiveThread extends Thread {
 	Socket socket = null;
 	BufferedReader in = null;
 	PrintWriter out = null;
-	Socket chat;
+	Chat chat;
 	Random r = new Random();
 	String ID;
 	int countwin;
 	int tier;
 	
-	public ReceiveThread (Socket socket, Socket chat, String ID) {
+	public ReceiveThread (Socket socket, Chat chat, String ID) {
 		this.socket = socket;
 		this.chat = chat;
 		this.ID = ID;
