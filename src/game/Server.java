@@ -1,136 +1,164 @@
 package game;
-// 서버용 포트 입력
+//허유진 서버 디자인 구현
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.lang.reflect.InvocationTargetException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
-public class Server extends JFrame implements ActionListener, MouseListener{
+import user.Mypage;
+
+	public class Server extends JFrame implements ActionListener{
+		
+		private Color SeverbtnColor;
+		private Font mainFont, startFont;
+		private JPanel leftpanel;
+		private JButton serverroom1, logout_btn, Rank_btn, Mypage_btn;
+		private String ID,name;
+		private JLabel UserName;
+		private Color blue, skyBlue;
+		private Game game;
+		
+		public Server(String title, String ID, String name) {
+			this.ID=ID;
+			this.name = name;
+			setTitle(title);
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setLocation(300, 300);
+			setSize(700, 500);
+			setLayout(new BorderLayout());
+			setResizable(false); // 화면 크기 조절 불가능
+			
+			SeverbtnColor = new Color(109, 109, 109);
+			mainFont = new Font("Koverwatch", Font.PLAIN, 30);
+			startFont = new Font("Koverwatch", Font.PLAIN, 70);
+
+			blue = new Color(26, 67, 141);
+			skyBlue= new Color(218, 227, 243);
+			
+			LeftPanel();
+			DBRank db = new DBRank(ID); //랭킹 디비 붙이기
+			db.UserName(ID ,UserName);
+
+			setVisible(true);
 	
-	private JTextField tfPort;
-	private JButton btn;
-	private Font font;
-	private Color blue;
-	private Color skyBlue;
-	private Font btnFont;
+		}
+		private void LeftPanel() {
+			leftpanel = new JPanel();
+			leftpanel.setLayout(null);
 
-	public Server() {
-		setTitle("서버 생성 화면");
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(300, 200);
-		setLayout(new BorderLayout());
-		setLocation(500, 200);
-		setResizable(false); // 화면 크기 조절 불가능
-		
-		font = new Font("Koverwatch", Font.PLAIN, 16);
-		btnFont = new Font("Koverwatch", Font.PLAIN, 18);
-		
-		blue = new Color(26, 67, 141);
-		skyBlue= new Color(218, 227, 243);
-		setCenter();
-		
-		setVisible(true);
-	}
+			//유저 이름
+			UserName = new JLabel(name);
+			UserName = new JLabel();
+			UserName.setBounds(540, 20, 500, 30);
+			UserName.setForeground(Color.white);
+			UserName.setFont(mainFont);
 
-	private void setCenter() {
-		JPanel panelCenter = new JPanel();
-		panelCenter.setLayout(null);
-		panelCenter.setPreferredSize(new Dimension(300, 300));
-		panelCenter.setBackground(skyBlue);
-		
-		tfPort = new JTextField("3333");  // 포트번호 입력
-		tfPort.addActionListener(this);
-		tfPort.addMouseListener(this);
-		tfPort.setBounds(40, 30, 200, 40);
-		tfPort.setHorizontalAlignment(JTextField.CENTER);
-		tfPort.setFont(font);
-		panelCenter.add(tfPort);
-		
-		btn = new JButton("서버 생성");
-		btn.addActionListener(this);
-		btn.setBounds(90, 90, 100, 50);
-		btn.setBackground(blue);
-		btn.setForeground(Color.WHITE);
-		btn.setFont(btnFont);
-		panelCenter.add(btn);
-		
-		add(panelCenter, BorderLayout.CENTER);
-	}
-	
-	boolean check(int port) {
-        try {
-            int i = port;
-            if (1 > i | i > 65535) {
-                JOptionPane.showMessageDialog(this, "정확한 포트를 입력해주세요.");
-                return false;
-            }
-            return true;
-        } catch (NumberFormatException ne) {
-            JOptionPane.showMessageDialog(this, "정확한 포트를 입력해주세요");
-            return false;
-        }
-    }
+			leftpanel.add(UserName);
+			
+			//2022-10-23 랭킹 이미지 버튼
+			ImageIcon Server_RankBtn_img = new ImageIcon("images/rank.png");
+			Rank_btn = new JButton(Server_RankBtn_img);
+			Rank_btn.setBackground(Color.white);
+			Rank_btn.setOpaque(false);
+			Rank_btn.setBorderPainted(false);
+			Rank_btn.setBounds(560, 400, 50, 50);
+			Rank_btn.addActionListener(this);
+			leftpanel.add(Rank_btn);
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		Object obj = e.getSource();
-		if(obj == tfPort || obj == btn) {
-			int port = Integer.parseInt(tfPort.getText());
-			Boolean chk = check(port);
-			if(chk = true) {
-				this.dispose();
-					Thread thread = new Thread(new Runnable() {
+			//2022-10-23 마이페이지 이미지 버튼
+			ImageIcon Server_MypageBtn_img = new ImageIcon("images/info.png");
+			Mypage_btn = new JButton(Server_MypageBtn_img);
+			Mypage_btn.setBackground(Color.white);
+			Mypage_btn.setOpaque(false);
+			Mypage_btn.setBorderPainted(false);
+			Mypage_btn.setBounds(620, 400, 50, 50);
+			Mypage_btn.addActionListener(this);
+			leftpanel.add(Mypage_btn);
+			
+			//2022-10-23 로그아웃 이미지 버튼
+			ImageIcon Server_logoutBtn_img = new ImageIcon("images/exit.png");
+			logout_btn = new JButton(Server_logoutBtn_img);
+			logout_btn.setBackground(Color.white);
+			logout_btn.setOpaque(false);
+			logout_btn.setBorderPainted(false);
+			logout_btn.setBounds(630, 10, 50, 50);
+			logout_btn.addActionListener(this);
+			leftpanel.add(logout_btn);
+			
+			//2022-10-23 공지 이미지 버튼
+			ImageIcon Server_NoticeBtn_img = new ImageIcon("images/notice.png");
+			JButton Notice_btn = new JButton(Server_NoticeBtn_img);
+			Notice_btn.setBackground(Color.white);
+			Notice_btn.setBorderPainted(false);
+			Notice_btn.setOpaque(false);
+			Notice_btn.setBounds(25, 410, 40, 40);
+			leftpanel.add(Notice_btn);
+			
+			//2022-10-23 서버 1
+			serverroom1 = new JButton("게임 시작");
+			serverroom1.setBounds(215, 150, 250, 100);
+			serverroom1.setBackground(SeverbtnColor);
+			serverroom1.setFont(startFont);
+			serverroom1.setBorderPainted(false);
+			serverroom1.setOpaque(false);
+			//serverroom1.setBackground(blue);
+			serverroom1.setForeground(Color.WHITE);
+			serverroom1.addActionListener(this);
+			leftpanel.add(serverroom1);
+			
+			//2022-10-23 뒷 배경 이미지 
+			ImageIcon Serverbackground_img = new ImageIcon("images/ServerBackground.jpg");
+			JLabel lblserverbackground = new JLabel(Serverbackground_img);
+			lblserverbackground.setBounds(-50, -30, 780, 500);
+			leftpanel.add(lblserverbackground);
+			
+			add(leftpanel, BorderLayout.CENTER);
+		}
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			Object obj = e.getSource();
+			// 2022-10-26 전우진 각 프레임 연결
+			if(obj == serverroom1) {
+				game = new Game("클라이언트 게임 시작 화면",ID);
+				System.out.println(ID);
+				Thread thread = new Thread(new Runnable() {
+					
 					@Override
 					public void run() {
-						TcpServer tcpServer = new TcpServer("서버", port);
-						tcpServer.start();		
+						game.setSocket();
+						
 					}
 				});
-					thread.start();
+				thread.start();
+				game.setLocationRelativeTo(this);
+					
+			}
+			else if(obj == logout_btn) {
+				Login lg = new Login();
+				lg.setLocationRelativeTo(this);
+				this.dispose();
+			}
+			else if(obj == Mypage_btn) {
+				Mypage my = new Mypage("마이페이지", ID, name);
+				my.setLocationRelativeTo(this);
+				this.dispose();
+			}
+			else if(obj == Rank_btn) {
+				Rank rk = new Rank("랭킹 화면", ID, name);
+				rk.setLocationRelativeTo(this);
+				this.dispose();
 			}
 		}
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		Object obj = e.getSource();
-		if(obj == tfPort) {
-			tfPort.setText("");
-		}	
-	}
 
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-}

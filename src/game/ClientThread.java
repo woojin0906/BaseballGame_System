@@ -1,5 +1,5 @@
 package game;
-// 클라이언트 스레드
+// 클라이언트 메시지를 서버로 보내는 thread
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -20,6 +20,7 @@ public class ClientThread extends Thread {
 			PrintStream out = new PrintStream(socket.getOutputStream());
 			
 			out.println(outMsg);
+			System.out.println(outMsg);
 			out.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
