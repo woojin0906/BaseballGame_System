@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
@@ -26,6 +27,7 @@ import user.Mypage;
 		private JLabel UserName;
 		private Color blue, skyBlue;
 		private Game game;
+		private JButton Notice_btn;
 		
 		public Server(String title, String ID, String name) {
 			this.ID=ID;
@@ -96,11 +98,12 @@ import user.Mypage;
 			
 			//2022-10-23 공지 이미지 버튼
 			ImageIcon Server_NoticeBtn_img = new ImageIcon("images/notice.png");
-			JButton Notice_btn = new JButton(Server_NoticeBtn_img);
+			Notice_btn = new JButton(Server_NoticeBtn_img);
 			Notice_btn.setBackground(Color.white);
 			Notice_btn.setBorderPainted(false);
 			Notice_btn.setOpaque(false);
 			Notice_btn.setBounds(25, 410, 40, 40);
+			Notice_btn.addActionListener(this);
 			leftpanel.add(Notice_btn);
 			
 			//2022-10-23 서버 1
@@ -157,6 +160,14 @@ import user.Mypage;
 				Rank rk = new Rank("랭킹 화면", ID, name);
 				rk.setLocationRelativeTo(this);
 				this.dispose();
+			}else if(obj == Notice_btn) {
+				if(JOptionPane.showConfirmDialog(this, 
+                        "고객센터로 전화하시겠습니까?",
+                        "공지",
+                        JOptionPane.YES_NO_OPTION
+                        ) == JOptionPane.YES_OPTION) {
+                    JOptionPane.showMessageDialog(this, "고객센터 전화번호는 032-777-7777 입니다.", "고객센테 안내", JOptionPane.INFORMATION_MESSAGE);
+                    }
 			}
 		}
 	}
