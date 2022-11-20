@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import db.dbInfo;
 import game.Login;
 
 public class SignUp extends JFrame implements ActionListener, MouseListener{

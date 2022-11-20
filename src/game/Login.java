@@ -22,9 +22,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import db.dbInfo;
 import user.PwCheck;
 import user.SignUp;
-import user.dbInfo;
 
 public class Login extends JFrame implements ActionListener, MouseListener, KeyListener{
 	
@@ -188,21 +188,7 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 				}
 			}
 		}
-//		else if(obj == btnCall) {
-//		//	JOptionPane.showMessageDialog(this, "고객센터 전화번호는 032-777-7777 입니다.", "고객센터 안내", JOptionPane.INFORMATION_MESSAGE);
-//				Thread thread = new Thread(new Runnable() {
-//					
-//					@Override
-//					public void run() {
-//						Chat c = new Chat("서버", ID);
-//						c.start();
-//					}
-//				});
-//				thread.start();
-//				
-//				this.dispose();
-//		
-//		}
+
 	} 
 
 

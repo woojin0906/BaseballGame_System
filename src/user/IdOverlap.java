@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import db.dbInfo;
+
 public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 	private Font font, btnFont;
 	private JButton btnCancel, btnCheck;
@@ -87,6 +89,8 @@ public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 		// 2022.10.26 전우진 기능 구현
 		if(obj == btnCancel) {
 			this.dispose();
+			SignUp signUp = new SignUp("회원가입");
+			signUp.setLocationRelativeTo(this);
 		} else if(obj == btnCheck || obj == tfId) {
 			id = tfId.getText();
 			if(id.equals("") || id.equals("아이디")) {

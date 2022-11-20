@@ -26,6 +26,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
+import db.DBRank;
+
 public class Rank extends JFrame implements MouseListener, ActionListener{
 
 	private String[] title = {"닉네임", "누적 점수", "이긴횟수"};

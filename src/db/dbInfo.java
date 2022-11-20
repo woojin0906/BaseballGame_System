@@ -1,4 +1,4 @@
-package user;
+package db;
 //전우진 MySQL 연동
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,6 +13,10 @@ import javax.swing.JTextField;
 import game.Chat;
 import game.Login;
 import game.Server;
+import user.IdCheck;
+import user.IdOverlap;
+import user.PwCheck;
+import user.SignUp;
 
 public class dbInfo {
 	
@@ -100,7 +104,7 @@ public class dbInfo {
 					String sqlUpdate = "update TCP_user set pw = '0000' where id = '" + id + "'";
 					statement.executeUpdate(sqlUpdate);
 					JOptionPane.showMessageDialog(pc, "이메일이 일치합니다. 비밀번호는 0000으로 초기화 됩니다.", "비밀번호 변경", JOptionPane.INFORMATION_MESSAGE);
-					SignUp lg = new SignUp("회원가입");
+					Login lg = new Login();
 					lg.setLocationRelativeTo(pc);
 					pc.dispose();
 				}
@@ -127,8 +131,7 @@ public class dbInfo {
 			}
 		}
 		
-		// 2022-10-26 아이디 찾기 db 연결
-				//패스워드 0000으로 초기화 -> 아이디와 이메일이 회원가입한 값과 동일한 경우에만
+				// 2022-10-26 아이디 찾기 db 연결
 				public void resetID(IdCheck ic, String inputName, String inputEmail) {
 					
 					try {

@@ -14,6 +14,8 @@ import java.util.StringTokenizer;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import db.DBRank;
+
 public class ReceiveThread extends Thread {
 	static List<PrintWriter> list = Collections.synchronizedList(new ArrayList<PrintWriter>());
 	Socket socket = null;

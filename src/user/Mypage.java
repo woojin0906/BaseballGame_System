@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import db.dbInfo;
 import game.Server;
 
 public class Mypage extends JFrame implements ActionListener{

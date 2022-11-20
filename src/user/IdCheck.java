@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import db.dbInfo;
 import game.Login;
 
 public class IdCheck extends JFrame implements MouseListener, ActionListener, KeyListener{
