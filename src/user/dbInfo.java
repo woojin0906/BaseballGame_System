@@ -267,9 +267,9 @@ public class dbInfo {
 						Character.toString(ch);
 						result += ""+ch+"";
 					}
-					
+					String sqlUpdate = "update TCP_user set pw = '" + result + "' where id = '" + id + "'";
 					try {
-						statement.executeUpdate("update TCP_user set pw = '" + result + "' where id = '" + id + "'");
+						statement.executeUpdate(sqlUpdate);
 					} catch (SQLException e) {
 						e.printStackTrace();
 					} finally {

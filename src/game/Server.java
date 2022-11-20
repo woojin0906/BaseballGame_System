@@ -58,7 +58,7 @@ import user.Mypage;
 			//유저 이름
 			UserName = new JLabel(name);
 			UserName = new JLabel();
-			UserName.setBounds(540, 20, 500, 30);
+			UserName.setBounds(10, 20, 500, 30);
 			UserName.setForeground(Color.white);
 			UserName.setFont(mainFont);
 
