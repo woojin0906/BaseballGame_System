@@ -21,13 +21,13 @@ public class ReceiveThread extends Thread {
 	Socket socket = null;
 	BufferedReader in = null;
 	PrintWriter out = null;
-	Chat chat;
+	Socket chat;
 	Random r = new Random();
 	String ID;
 	int countwin;
 	int tier;
 	
-	public ReceiveThread (Socket socket, Chat chat, String ID) {
+	public ReceiveThread (Socket socket, Socket chat, String ID) {
 		this.socket = socket;
 		this.chat = chat;
 		this.ID = ID;

@@ -35,7 +35,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	private JButton btnChat;
 	private String id, comment;
 	private JTextArea ta;
-	private Chat chat;
+	private Socket chat;
 	private PrintStream out;
 	private Socket socket;
 	private BufferedReader in;

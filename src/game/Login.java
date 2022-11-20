@@ -28,7 +28,7 @@ import user.SignUp;
 
 public class Login extends JFrame implements ActionListener, MouseListener, KeyListener{
 	
-	private Font font, btnFont, loginFont, tfFont;
+	private Font font, btnFont, loginFont, IDFont, PWFont;
 	private JButton btnJoin, btnSearch, btnLogin, btnCall;
 	private JTextField tfId;
 	private JPasswordField pfPw;
@@ -55,7 +55,8 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		
 		loginFont = new Font("Koverwatch", Font.BOLD, 80);
 		btnFont = new Font("Koverwatch", Font.BOLD, 16);
-		tfFont = new Font("Koverwatch", Font.PLAIN, 16);
+		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);
+		PWFont = new Font("Koverwatch", Font.PLAIN, 16);
 		font = new Font("Koverwatch", Font.PLAIN, 14);
 		PanelLeft();
 		
@@ -77,7 +78,7 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		
 		// 로그인 화면 텍스트 필드(아이디) 출력
 		tfId = new JTextField("아이디", 20);
-		tfId.setFont(tfFont);
+		tfId.setFont(IDFont);
 		tfId.setBounds(300, 265, 180, 22);
 		tfId.setBorder(BorderFactory.createEmptyBorder());
 		tfId.setBackground(Color.WHITE);
@@ -89,7 +90,7 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		
 		// 로그인 화면 텍스트 필드(비밀번호) 출력
 		pfPw = new JPasswordField("비밀번호", 20);
-		pfPw.setFont(tfFont);
+		pfPw.setFont(PWFont);
 		pfPw.setBounds(300, 315, 180, 22);
 		pfPw.setBorder(BorderFactory.createEmptyBorder());
 		pfPw.setBackground(Color.WHITE);

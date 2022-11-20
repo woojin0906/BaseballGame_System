@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import game.Chat;
+import game.Socket;
 import game.Login;
 import game.Server;
 import user.IdCheck;
@@ -197,7 +197,7 @@ public class dbInfo {
 
 									@Override
 									public void run() {
-										Chat c = new Chat(id);
+										Socket c = new Socket(id);
 										c.start();
 									}
 								});
