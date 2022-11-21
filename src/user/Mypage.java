@@ -187,6 +187,10 @@ public class Mypage extends JFrame implements ActionListener{
 
 			if(result.equals(result2)) {
 			  db.memberInfo(ID, Mypage_pw);
+			  this.dispose();
+			  JOptionPane.showMessageDialog(this, "변경되었습니다.",
+						"변경 안내", JOptionPane.INFORMATION_MESSAGE);
+			  Server s = new Server("대기화면", ID, name);
 			} else {
 				JOptionPane.showMessageDialog(this, "비밀번호가 틀립니다.",
 						"경고", JOptionPane.WARNING_MESSAGE);

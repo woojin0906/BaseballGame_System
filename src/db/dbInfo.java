@@ -21,10 +21,10 @@ import user.SignUp;
 
 public class dbInfo {
 	
-	private java.sql.Statement statement;
-	private Connection conn;
+	private java.sql.Statement statement = null;
+	private Connection conn = null;
 	private SignUp signUp;
-	private ResultSet result;
+	private ResultSet result = null;
 	private String name, email, inputId, pw;
 
 	// 2022-10-26 전우진 MySQL 연결
@@ -61,7 +61,6 @@ public class dbInfo {
 			} finally {
 				try {
 					statement.close();
-					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -125,7 +124,6 @@ public class dbInfo {
 				try {
 					statement.close();
 					result.close();
-					conn.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -169,7 +167,6 @@ public class dbInfo {
 						try {
 							statement.close();
 							result.close();
-							conn.close();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
@@ -224,7 +221,6 @@ public class dbInfo {
 						try {
 							result.close();
 							statement.close();
-							conn.close();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
@@ -255,7 +251,6 @@ public class dbInfo {
 						try {
 							statement.close();
 							result.close();
-							conn.close();
 						} catch (SQLException e) {
 							e.printStackTrace();
 						}
@@ -273,6 +268,7 @@ public class dbInfo {
 					}
 					String sqlUpdate = "update TCP_user set pw = '" + result + "' where id = '" + id + "'";
 					try {
+						statement = conn.createStatement(); 
 						statement.executeUpdate(sqlUpdate);
 					} catch (SQLException e) {
 						e.printStackTrace();
