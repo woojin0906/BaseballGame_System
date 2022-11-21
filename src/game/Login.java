@@ -86,6 +86,7 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		tfId.addActionListener(this);
 		tfId.addMouseListener(this);
 		tfId.addKeyListener(this);
+		tfId.setFocusTraversalKeysEnabled(false);
 		panelLeft.add(tfId);
 		
 		
@@ -98,7 +99,7 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		pfPw.addActionListener(this);
 		pfPw.addMouseListener(this);
 		pfPw.addKeyListener(this);
-
+		pfPw.setFocusTraversalKeysEnabled(false);
 		panelLeft.add(pfPw);
 		
 		// 로그인 화면 텍스트 필드 배경이미지 출력
@@ -251,9 +252,12 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// 2022-10-26 전우진 비밀번호 필드 탭 연결 및 초기화
-		if(e.getKeyCode() == KeyEvent.VK_TAB) {
+		if(e.getKeyCode() == KeyEvent.VK_TAB&&e.getSource() == tfId) {
 			pfPw.requestFocus();
 			pfPw.setText("");
+		}else if (e.getKeyCode()==KeyEvent.VK_TAB&&e.getSource() == pfPw) {
+			tfId.requestFocus();
+			tfId.setText("");
 		}	
 	}
 

@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -21,7 +23,7 @@ import javax.swing.JTextField;
 import db.dbInfo;
 import game.Server;
 
-public class Mypage extends JFrame implements ActionListener, MouseListener{
+public class Mypage extends JFrame implements ActionListener, MouseListener, KeyListener{
 	
 	private Font mainFont, subFont;
 	private String ID, name;
@@ -136,12 +138,16 @@ public class Mypage extends JFrame implements ActionListener, MouseListener{
 		Mypage_pw = new JPasswordField();
 		Mypage_pw.setBounds(210, 130, 200, 30);
 		Mypage_pw.addMouseListener(this);
+		Mypage_pw.addKeyListener(this);
+		Mypage_pw.setFocusTraversalKeysEnabled(false);
 		Mypage_Pannel.add(Mypage_pw);
 		
 		//2022-10-24 패스워드 확인 텍스트
 		Mypage_pwcheck = new JPasswordField();
 		Mypage_pwcheck.setBounds(210, 180, 200, 30);
 		Mypage_pwcheck.addMouseListener(this);
+		Mypage_pwcheck.addKeyListener(this);
+		Mypage_pwcheck.setFocusTraversalKeysEnabled(false);
 		Mypage_Pannel.add(Mypage_pwcheck);
 		
 		//2022-10-24 닉네임 텍스트
@@ -243,6 +249,33 @@ public class Mypage extends JFrame implements ActionListener, MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode()==KeyEvent.VK_TAB&&e.getSource() == Mypage_pw) {
+			Mypage_pwcheck.requestFocus();
+			Mypage_pwcheck.setText("");
+		}else if (e.getKeyCode()==KeyEvent.VK_TAB&&e.getSource() == Mypage_pwcheck) {
+			Mypage_pw.requestFocus();
+			Mypage_pw.setText("");
+		}
+		
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
