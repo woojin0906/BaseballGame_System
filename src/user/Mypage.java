@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,7 +21,7 @@ import javax.swing.JTextField;
 import db.dbInfo;
 import game.Server;
 
-public class Mypage extends JFrame implements ActionListener{
+public class Mypage extends JFrame implements ActionListener, MouseListener{
 	
 	private Font mainFont, subFont;
 	private String ID, name;
@@ -133,17 +135,20 @@ public class Mypage extends JFrame implements ActionListener{
 		//2022-10-24 패스워드 텍스트
 		Mypage_pw = new JPasswordField();
 		Mypage_pw.setBounds(210, 130, 200, 30);
+		Mypage_pw.addMouseListener(this);
 		Mypage_Pannel.add(Mypage_pw);
 		
 		//2022-10-24 패스워드 확인 텍스트
 		Mypage_pwcheck = new JPasswordField();
 		Mypage_pwcheck.setBounds(210, 180, 200, 30);
+		Mypage_pwcheck.addMouseListener(this);
 		Mypage_Pannel.add(Mypage_pwcheck);
 		
 		//2022-10-24 닉네임 텍스트
 		Mypage_textfield_Nickname =new JTextField();
 		Mypage_textfield_Nickname.setBounds(210, 230, 200, 30);
 		Mypage_textfield_Nickname.setFont(subFont);
+		Mypage_textfield_Nickname.setEditable(false);
 		Mypage_Pannel.add(Mypage_textfield_Nickname);
 		
 		//2022-10-24 이메일 텍스트
@@ -199,6 +204,47 @@ public class Mypage extends JFrame implements ActionListener{
 			this.dispose();
 			Server s = new Server("서버화면", ID, name);
 		}
+	}
+
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		Object obj = e.getSource();
+		if(obj == Mypage_pw) {
+			Mypage_pw.setText("");
+		}
+		else if(obj == Mypage_pwcheck) {
+			Mypage_pwcheck.setText("");
+		}
+		
+	}
+
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
