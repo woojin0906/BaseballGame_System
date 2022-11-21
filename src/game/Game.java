@@ -1,5 +1,5 @@
 package game;
-// 클라이언트 게임 화면
+// 전우진 클라이언트 게임 화면
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

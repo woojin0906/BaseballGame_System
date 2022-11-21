@@ -59,12 +59,9 @@ public class ReceiveThread extends Thread {
 			serverNum=randomNum[0]+" "+randomNum[1]+" "+randomNum[2];//이걸 해준 이유는 그냥 표시하기 위해서이다. 아래에다 그냥 변수안만들고 해도 상관은 없다.
 			System.out.println("서버 숫자 ->" + serverNum);
 			
-			/*JTextArea ta = chat.getTa();
-			ta.append("서버 숫자 ->" + serverNum + "\n\n");*/
-			
 			sendAll("야구 게임이 시작됩니다.");
 
-				int count=0;//이걸 준 이유는 총 10번 왔다갔다할경우 서버가 이기게끔 하기 위해서이다.
+				int count=1;//이걸 준 이유는 총 10번 왔다갔다할경우 서버가 이기게끔 하기 위해서이다.
 				while (true) {//반복시킨 이유는 반복할려고
 					int strike=0;
 					int ball=0;
@@ -75,8 +72,7 @@ public class ReceiveThread extends Thread {
 					String inputMsg;
 					try {
 						inputMsg = in.readLine();
-							/*ta.append("클라이언트가 입력한 수 -> " + inputMsg + "\n");
-							ta.append("-----------------------------> ");*/
+						
 							System.out.print("클라이언트가 입력한 수 -> " + inputMsg + "\n");
 							System.out.println("-----------------------------> ");
 						int[] msg = new int[3]; 
@@ -109,21 +105,21 @@ public class ReceiveThread extends Thread {
 					}
 					
 					String resultMsg = strike + " 스트라이크 " + ball + " 볼 (" + count + " )번째"; 
-				//	ta.append(resultMsg + "\n\n");
+
 					System.out.println(resultMsg);
 					sendAll(resultMsg);
 
 					count++;
-					if(count>=9) {
+					if(count>=11) {
 						System.out.println("서버승리");
-						//ta.append("서버승리" + "\n");
+
 						sendAll("lose");
 						
 						break;
 					}
 					else if(strike==3) {
 						System.out.println("서버패배");
-					//	ta.append("서버패배" + "\n");
+
 						sendAll("win");
 						
 						System.out.println(ID);

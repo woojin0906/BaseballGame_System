@@ -1,5 +1,5 @@
 package user;
-// 회원가입
+// 허유진 회원가입
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

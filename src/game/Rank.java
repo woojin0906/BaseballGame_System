@@ -1,5 +1,5 @@
 package game;
-// 랭킹 화면
+// 허유진 랭킹 화면
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

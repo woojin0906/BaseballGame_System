@@ -57,7 +57,8 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		btnFont = new Font("Koverwatch", Font.BOLD, 16);
 		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);
 		PWFont = new Font("Koverwatch", Font.PLAIN, 16);
-		font = new Font("Koverwatch", Font.PLAIN, 14);
+		font = new Font("Koverwatch", Font.PLAIN, 15);
+		
 		PanelLeft();
 		
 		setVisible(true);
@@ -124,19 +125,25 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 
 		// 로그인 화면 회원 가입 출력
 		btnJoin = new JButton("회원 가입");
-		btnJoin.setBounds(10, 435, 80, 30);
-		btnJoin.setForeground(Color.BLACK);
+		//btnJoin.setBounds(10, 435, 80, 30);
+		btnJoin.setBounds(10, 10, 80, 30);
+		btnJoin.setForeground(Color.WHITE);
 		btnJoin.setFont(font);
 		btnJoin.setBackground(Color.WHITE);
+		btnJoin.setBorderPainted(false);
+		btnJoin.setOpaque(false);
 		btnJoin.addActionListener(this);
 		panelLeft.add(btnJoin);
 		
 		// 로그인 화면 비밀번호 찾기 출력
 		btnSearch = new JButton("비밀번호 찾기");
-		btnSearch.setBounds(10, 475, 110, 30);
-		btnSearch.setForeground(Color.BLACK);
+		//btnSearch.setBounds(10, 475, 110, 30);
+		btnSearch.setBounds(80, 10, 100, 30);
+		btnSearch.setForeground(Color.WHITE);
 		btnSearch.setFont(font);
 		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setBorderPainted(false);
+		btnSearch.setOpaque(false);
 		btnSearch.addActionListener(this);
 		panelLeft.add(btnSearch);
 		

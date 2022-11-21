@@ -1,5 +1,5 @@
 package game;
-//허유진 게임 대기창 디자인 구현
+// 게임 대기창 디자인 구현
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
