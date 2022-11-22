@@ -34,9 +34,6 @@ public class SignUp extends JFrame implements ActionListener, MouseListener, Win
 	private int count;
 	private Color blue, skyBlue;
 
-	public static void main(String[] args) {
-		new SignUp("dd");
-	}
 	public SignUp(String title) {
 		setTitle(title);
 		setLocation(300, 300);

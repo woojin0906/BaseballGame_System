@@ -32,7 +32,7 @@ import javax.swing.JTextField;
 public class Game extends JFrame implements ActionListener, MouseListener, KeyListener, WindowListener {
 
 	private String ID, name;
-	private Font font, btnFont;
+	private Font font, btnFont, IDFont;
 	private JTextField tfChat;
 	private JButton btnChat;
 	private String id, comment;
@@ -52,6 +52,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		setResizable(false); // 화면 크기 조절 불가능
 		addWindowListener(this);
 		
+		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);		
 		btnFont = new Font("Koverwatch", Font.PLAIN, 16);
 		font = new Font("Koverwatch", Font.PLAIN, 14);
 		
@@ -95,7 +96,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		// 채팅창 입력창 텍스트 필드 출력
 		tfChat = new JTextField("텍스트를 입력하세요.");
 		tfChat.setBounds(10, 7, 235, 35);
-		tfChat.setFont(btnFont);
+		tfChat.setFont(IDFont);
 		tfChat.setBackground(sky);
 		tfChat.addActionListener(this);
 		tfChat.addMouseListener(this);
@@ -123,7 +124,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 					String outMsg = tfChat.getText();  						// 클라이언트가 입력한 문자열 담는 변수
 						ClientThread clientThread = new ClientThread(socket, outMsg); 		// 출력 스트림
 						clientThread.start();
-						
+
 						ta.append("-->" + outMsg + "\n");
 						tfChat.setText("");
 						tfChat.requestFocus();
@@ -200,6 +201,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 					ta.append("클라이언트 패배! \n");
 					ta.append("연결 종료 \n");
 					JOptionPane.showMessageDialog(this, "패배ㅠㅠㅠ", "결과", JOptionPane.INFORMATION_MESSAGE);
+					this.dispose();
 					break;
 					
 				}
@@ -208,10 +210,15 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 					ta.append("클라이언트 승리! \n" );
 					ta.append("연결 종료 \n");
 					JOptionPane.showMessageDialog(this, "승리!!!", "결과", JOptionPane.INFORMATION_MESSAGE);
+					this.dispose();
+					break;
+				}
+				if(inMessage.equals("exit")) {
+					this.dispose();
+					Server server = new Server("서버화면", ID, name);
 					break;
 				}
 			}
-			this.dispose();
 			
 		} catch (IOException e) {
 			System.out.println("서버 생성이 되지 않았습니다");

@@ -132,6 +132,7 @@ import user.Mypage;
 			Object obj = e.getSource();
 			// 2022-10-26 전우진 각 프레임 연결
 			if(obj == serverroom1) {
+				this.dispose();
 				game = new Game("클라이언트 게임 시작 화면",ID);
 				System.out.println(ID);
 				Thread thread = new Thread(new Runnable() {

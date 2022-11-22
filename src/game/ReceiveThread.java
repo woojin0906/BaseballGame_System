@@ -73,6 +73,12 @@ public class ReceiveThread extends Thread {
 					try {
 						inputMsg = in.readLine();
 						
+						
+						if(inputMsg.equals("exit") || inputMsg.equals("EXIT")) {
+							sendAll("exit");
+							break;
+						}
+							
 							System.out.print("클라이언트가 입력한 수 -> " + inputMsg + "\n");
 							System.out.println("-----------------------------> ");
 							

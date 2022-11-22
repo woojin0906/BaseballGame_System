@@ -156,7 +156,7 @@ public class Mypage extends JFrame implements ActionListener, MouseListener, Key
 		//2022-10-24 닉네임 텍스트
 		Mypage_textfield_Nickname =new JTextField();
 		Mypage_textfield_Nickname.setBounds(210, 230, 200, 30);
-		Mypage_textfield_Nickname.setFont(subFont);
+		Mypage_textfield_Nickname.setFont(IDFont);
 		Mypage_textfield_Nickname.setEditable(false);
 		Mypage_Pannel.add(Mypage_textfield_Nickname);
 		
