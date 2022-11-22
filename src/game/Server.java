@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.ImageIcon;
@@ -18,7 +20,7 @@ import javax.swing.SwingUtilities;
 import db.DBRank;
 import user.Mypage;
 
-	public class Server extends JFrame implements ActionListener{
+	public class Server extends JFrame implements ActionListener, WindowListener{
 		
 		private Color SeverbtnColor;
 		private Font mainFont, startFont;
@@ -33,11 +35,11 @@ import user.Mypage;
 			this.ID=ID;
 			this.name = name;
 			setTitle(title);
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setLocation(300, 300);
 			setSize(700, 500);
 			setLayout(new BorderLayout());
 			setResizable(false); // 화면 크기 조절 불가능
+			addWindowListener(this);
 			
 			SeverbtnColor = new Color(109, 109, 109);
 			mainFont = new Font("Koverwatch", Font.PLAIN, 30);
@@ -63,7 +65,6 @@ import user.Mypage;
 			UserName.setBounds(10, 20, 500, 30);
 			UserName.setForeground(Color.white);
 			UserName.setFont(mainFont);
-
 			leftpanel.add(UserName);
 			
 			//2022-10-23 랭킹 이미지 버튼
@@ -113,7 +114,6 @@ import user.Mypage;
 			serverroom1.setFont(startFont);
 			serverroom1.setBorderPainted(false);
 			serverroom1.setOpaque(false);
-			//serverroom1.setBackground(blue);
 			serverroom1.setForeground(Color.WHITE);
 			serverroom1.addActionListener(this);
 			leftpanel.add(serverroom1);
@@ -178,6 +178,41 @@ import user.Mypage;
                     JOptionPane.showMessageDialog(this, "고객센터 전화번호는 032-777-7777 입니다.", "고객센테 안내", JOptionPane.INFORMATION_MESSAGE);
                     }
 			}
+		}
+		@Override
+		public void windowOpened(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void windowClosing(WindowEvent e) {
+			setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);				
+		}
+		
+		@Override
+		public void windowClosed(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void windowIconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void windowDeiconified(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void windowActivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public void windowDeactivated(WindowEvent e) {
+			// TODO Auto-generated method stub
+			
 		}
 	}
 	

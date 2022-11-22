@@ -10,6 +10,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -27,7 +29,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Game extends JFrame implements ActionListener, MouseListener, KeyListener {
+public class Game extends JFrame implements ActionListener, MouseListener, KeyListener, WindowListener {
 
 	private String ID, name;
 	private Font font, btnFont;
@@ -44,11 +46,11 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 	public Game(String title, String ID) {
 		this.ID = ID;
 		setTitle(title);
-		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(350, 500);
 		setLayout(new BorderLayout());
 		setLocation(500, 150);
 		setResizable(false); // 화면 크기 조절 불가능
+		addWindowListener(this);
 		
 		btnFont = new Font("Koverwatch", Font.PLAIN, 16);
 		font = new Font("Koverwatch", Font.PLAIN, 14);
@@ -64,11 +66,11 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 
 	}
 	private void setCenter() {
-		// 채팅창 채팅 표시 패널
+		// 게임(클라이언트) 화면 채팅 표시 패널
 		JPanel panelCenter = new JPanel();
 		panelCenter.setLayout(new BorderLayout());
 		
-		// 채팅창 텍스트아레아 출력 + 스크롤팬
+		// 게임(클라이언트) 화면 텍스트아레아 출력 + 스크롤팬
 		ta = new JTextArea(7, 20);
 		ta.setLineWrap(true);
 		ta.setEditable(false);
@@ -100,7 +102,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		tfChat.addKeyListener(this);
 		panelSouth.add(tfChat);
 		
-		// 채팅창 전송 버튼 출력
+		// 게임(클라이언트) 화면 전송 버튼 출력
 		btnChat = new JButton("전송");
 		btnChat.setFont(btnFont);
 		btnChat.setForeground(Color.WHITE);
@@ -118,9 +120,10 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 			Object obj = e.getSource();
 
 				if(obj == tfChat || obj == btnChat) {
-					String outMsg = tfChat.getText();
-						ClientThread clientThread = new ClientThread(socket, outMsg);
+					String outMsg = tfChat.getText();  						// 클라이언트가 입력한 문자열 담는 변수
+						ClientThread clientThread = new ClientThread(socket, outMsg); 		// 출력 스트림
 						clientThread.start();
+						
 						ta.append("-->" + outMsg + "\n");
 						tfChat.setText("");
 						tfChat.requestFocus();
@@ -133,7 +136,6 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		
 	}
 
-
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if(e.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -141,20 +143,17 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		}		
 	}
 
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -164,20 +163,17 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		}			
 	}
 
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void mouseExited(MouseEvent e) {
@@ -189,35 +185,33 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 		
 		try {			
 			
-			socket = new Socket("127.0.0.1", 9999);	
+			socket = new Socket("127.0.0.1", 9999);	  // 소켓 연결
 			
 			ta.append("서버 연결 완료!\n");
 			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 			out = new PrintStream(socket.getOutputStream());
 			
 			while(true) {			
-				String inMessage = in.readLine();
+				String inMessage = in.readLine(); // 서버에서 받아온 메시지 저장하는 변수
 				
 				ta.append(inMessage + "\n");
 				
-				
 				if(inMessage.equals("lose")) {
-					ta.append("클라이언트가 졌다.\n");
-					ta.append("연결을 종료.\n");
+					ta.append("클라이언트 패배! \n");
+					ta.append("연결 종료 \n");
 					JOptionPane.showMessageDialog(this, "패배ㅠㅠㅠ", "결과", JOptionPane.INFORMATION_MESSAGE);
 					break;
 					
 				}
 				
 				if(inMessage.equals("win")) {
-					ta.append("클라이언트가 이겼다.\n" );
-					ta.append("연결을 종료.\n");
+					ta.append("클라이언트 승리! \n" );
+					ta.append("연결 종료 \n");
 					JOptionPane.showMessageDialog(this, "승리!!!", "결과", JOptionPane.INFORMATION_MESSAGE);
 					break;
 				}
 			}
 			this.dispose();
-			
 			
 		} catch (IOException e) {
 			System.out.println("서버 생성이 되지 않았습니다");
@@ -232,6 +226,47 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void windowClosing(WindowEvent e) {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);			
+	}
+	
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

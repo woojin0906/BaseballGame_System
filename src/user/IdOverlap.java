@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,8 +19,8 @@ import javax.swing.JTextField;
 
 import db.dbInfo;
 
-public class IdOverlap extends JFrame implements ActionListener, MouseListener{
-	private Font font, btnFont;
+public class IdOverlap extends JFrame implements ActionListener, MouseListener, WindowListener{
+	private Font font, btnFont, IDFont;
 	private JButton btnCancel, btnCheck;
 	private JTextField tfId;
 	private String id;
@@ -29,15 +31,16 @@ public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 	public IdOverlap(String title, SignUp signUp) {
 		this.sg = signUp;
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(342, 150);
 		setLayout(new BorderLayout());
 		setLocation(500, 500);
 		setResizable(false); // 화면 크기 조절 불가능
+		addWindowListener(this);
 		
 		blue = new Color(26, 67, 141);
 		skyBlue= new Color(218, 227, 238);
 		
+		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);
 		btnFont = new Font("Koverwatch", Font.PLAIN, 16);
 		font = new Font("Koverwatch", Font.PLAIN, 14);
 		
@@ -51,7 +54,7 @@ public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 		panelCenter.setLayout(null);
 		panelCenter.setBackground(skyBlue);
 		
-		// 아이디 찾기 화면 취소 버튼 출력
+		// 아이디 중복 화면 취소 버튼 출력
 		btnCancel = new JButton("취소");
 		btnCancel.setFont(font);
 		btnCancel.setContentAreaFilled(false);
@@ -61,7 +64,7 @@ public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 		btnCancel.addActionListener(this);
         panelCenter.add(btnCancel);
         
-        // 아이디 찾기 확인 버튼 출력
+        // 아이디 중복 확인 버튼 출력
         btnCheck = new JButton("확인");
 		btnCheck.setBounds(218, 55, 70, 30);
 		btnCheck.setBackground(blue);
@@ -70,9 +73,9 @@ public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 		btnCheck.addActionListener(this);
 		panelCenter.add(btnCheck);
 		
-        // 아이디 찾기 텍스트 필드(이름) 출력
+        // 아이디 텍스트 필드(아이디) 출력
 		tfId = new JTextField("아이디");
-		tfId.setFont(font);
+		tfId.setFont(IDFont);
 		tfId.setBounds(38, 55, 160, 30);
 		tfId.setBorder(BorderFactory.createEmptyBorder());
 		tfId.setFocusTraversalKeysEnabled(false);
@@ -135,6 +138,47 @@ public class IdOverlap extends JFrame implements ActionListener, MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);			
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

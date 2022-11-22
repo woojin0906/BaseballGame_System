@@ -46,28 +46,28 @@ public class ReceiveThread extends Thread {
 		int[] randomNum = new int [3];
 		String serverNum = null;
 		
-			for(int i=0; i<randomNum.length; i++) {//i부터 시작해서 ran의 길이까지 i의값을 증가시켰다.
-				randomNum[i]=r.nextInt(9)+1;//ran배열의 i번째에  랜덤 수를 넣었다.
-				for(int j=0; j<i; j++) {//여기서부터는 중복검사 소스이다.
-					if(randomNum[i]==randomNum[j]) {//중복검사소스이다.
-						i--;//같을경우 다시 i를 입력하게끔 할려고 돌아갔다.
-						break;//위에 for문으로 가야되니 다시 돌아갔다.
+			for(int i=0; i<randomNum.length; i++) {			// i부터 시작 -> randomNum의 길이까지 i의 값을 1씩 증가
+				randomNum[i]=r.nextInt(9) +1;				// randomNum 배열의 i번째에 랜덤 수 삽입
+				for(int j=0; j<i; j++) {					// 중복검사 소스
+					if(randomNum[i]==randomNum[j]) {		
+						i--;								// 랜덤함수가 같은 경우 되돌아가기
+						break;								
 					}
 				}
 			}
 			
-			serverNum=randomNum[0]+" "+randomNum[1]+" "+randomNum[2];//이걸 해준 이유는 그냥 표시하기 위해서이다. 아래에다 그냥 변수안만들고 해도 상관은 없다.
+			serverNum=randomNum[0]+" "+randomNum[1]+" "+randomNum[2];	// 서버에 랜덤함수 표시
 			System.out.println("서버 숫자 ->" + serverNum);
 			
-			sendAll("야구 게임이 시작됩니다.");
+			sendAll("야구 게임이 시작됩니다!!");
 
-				int count=1;//이걸 준 이유는 총 10번 왔다갔다할경우 서버가 이기게끔 하기 위해서이다.
-				while (true) {//반복시킨 이유는 반복할려고
+				int count=1;		// 10번 카운트 주기 위해
+				while (true) {		
 					int strike=0;
 					int ball=0;
 					
 					sendAll("----------------------------");
-					sendAll("세 수를 입력하세요(ex: 1 2 3)");
+					sendAll("세자리 수를 입력하세요(ex: 1 2 3)");
 					
 					String inputMsg;
 					try {
@@ -75,16 +75,17 @@ public class ReceiveThread extends Thread {
 						
 							System.out.print("클라이언트가 입력한 수 -> " + inputMsg + "\n");
 							System.out.println("-----------------------------> ");
+							
 						int[] msg = new int[3]; 
 						
 						if(inputMsg.length()==3) {
-	                        // 입력받은 문자열을 정수로 변환하여 배열에 담는다.
-	                        msg[0] = inputMsg.charAt(0)-'0';
-	                        msg[1] = inputMsg.charAt(1)-'0';
-	                        msg[2] = inputMsg.charAt(2)-'0';
+	                        		// 입력받은 문자열 -> 정수 변환 -> 배열에 담기
+	                        msg[0] = inputMsg.charAt(0)-'0';    // 입력받은 첫 번째 문자열
+	                        msg[1] = inputMsg.charAt(1)-'0';	// 입력받은 두 번째 문자열
+	                        msg[2] = inputMsg.charAt(2)-'0';	// 입력받은 세 번째 문자열
 	                  } else {
 	                	 	sendAll("3자리를 입력해주세요.(공백제외)");
-	                        continue;       // 3자리가 아니면 다시 입력을 받는다.
+	                        continue;       	// 공백 없이 3자리가 아닌 경우 메시지 보내기
 	                  }
 						
 						for(int i=0; i<3; i++) {
@@ -113,18 +114,19 @@ public class ReceiveThread extends Thread {
 					if(count>=11) {
 						System.out.println("서버승리");
 
-						sendAll("lose");
+						sendAll("lose");  		// 서버 승리 시 클라이언트가 패배했다는 문자 전달
 						
 						break;
 					}
 					else if(strike==3) {
 						System.out.println("서버패배");
-
-						sendAll("win");
+						sendAll("win");			// 서버 패배 시 클라이언트가 승리했다는 문자 전달
 						
 						System.out.println(ID);
-						DBRank db = new DBRank(ID);
+						
+						DBRank db = new DBRank(ID);  	// 클라이언트가 승리한 경우 사용자에게 점수 부여
 						db.UpdateCountTier(ID);
+						
 						System.out.println("해당아이디 업데이트 완료");
 						break;
 					}

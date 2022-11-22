@@ -37,10 +37,8 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 	private Color blue, skyBlue;
 
 	public static void main(String[] args) {
-		
 		Login login = new Login();
 	}
-
 
 	public Login() {
 		setTitle("로그인 화면");
@@ -53,11 +51,11 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		blue = new Color(26, 67, 141);
 		skyBlue= new Color(218, 227, 243);
 		
-		loginFont = new Font("Koverwatch", Font.BOLD, 80);
-		btnFont = new Font("Koverwatch", Font.BOLD, 16);
-		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);
-		PWFont = new Font("Koverwatch", Font.PLAIN, 16);
-		font = new Font("Koverwatch", Font.PLAIN, 15);
+		loginFont = new Font("Koverwatch", Font.BOLD, 80); 		// BASEBALL 글자 크기
+		btnFont = new Font("Koverwatch", Font.BOLD, 16);		// 버튼 글자 크기
+		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);		// 아이디 글자 크기
+		PWFont = new Font("Koverwatch", Font.PLAIN, 16);		// 비밀번호 글자 크기
+		font = new Font("Koverwatch", Font.PLAIN, 15);			
 		
 		PanelLeft();
 		
@@ -76,7 +74,6 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		lbl.setBounds(200, 100, 400, 150);
 		panelLeft.add(lbl);
 		
-		
 		// 로그인 화면 텍스트 필드(아이디) 출력
 		tfId = new JTextField("아이디", 20);
 		tfId.setFont(IDFont);
@@ -88,7 +85,6 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		tfId.addKeyListener(this);
 		tfId.setFocusTraversalKeysEnabled(false);
 		panelLeft.add(tfId);
-		
 		
 		// 로그인 화면 텍스트 필드(비밀번호) 출력
 		pfPw = new JPasswordField("비밀번호", 20);
@@ -138,7 +134,6 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		
 		// 로그인 화면 비밀번호 찾기 출력
 		btnSearch = new JButton("비밀번호 찾기");
-		//btnSearch.setBounds(10, 475, 110, 30);
 		btnSearch.setBounds(80, 10, 100, 30);
 		btnSearch.setForeground(Color.WHITE);
 		btnSearch.setFont(font);
@@ -154,10 +149,8 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		lblLogin.setBounds(0, -30, 780, 550);
 		panelLeft.add(lblLogin);
 		
-		
 		add(panelLeft, BorderLayout.CENTER);
 	}
-
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -200,13 +193,11 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 
 	} 
 
-
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -220,13 +211,11 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		}
 	}
 
-
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -234,20 +223,17 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		
 	}
 
-
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
-
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 	@Override
 	public void keyPressed(KeyEvent e) {
@@ -261,12 +247,10 @@ public class Login extends JFrame implements ActionListener, MouseListener, KeyL
 		}	
 	}
 
-
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
-
 
 }

@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,7 +30,7 @@ import javax.swing.table.TableModel;
 
 import db.DBRank;
 
-public class Rank extends JFrame implements MouseListener, ActionListener{
+public class Rank extends JFrame implements MouseListener, ActionListener, WindowListener {
 
 	private String[] title = {"닉네임", "누적 점수", "이긴횟수"};
 	private String[][] datas = new String[0][3];
@@ -48,11 +50,11 @@ public class Rank extends JFrame implements MouseListener, ActionListener{
 		this.ID = ID;
 		this.NICK = NICK;
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(300, 300);
 		setSize(414, 600);
 		setLayout(new BorderLayout());
 		setResizable(false); // 화면 크기 조절 불가능
+		addWindowListener(this);
 		
 		blue = new Color(26, 67, 141);
 		skyBlue= new Color(218, 227, 238);
@@ -73,6 +75,7 @@ public class Rank extends JFrame implements MouseListener, ActionListener{
 		exit_btn.addActionListener(this);
 		UpPanel.add(exit_btn);
 				
+		// 랭킹 라벨 출력
 		JLabel lbltitle = new JLabel("랭킹");
 		lbltitle.setForeground(blue);
 		lbltitle.setFont(new Font("Koverwatch", Font.BOLD, 32));
@@ -88,6 +91,7 @@ public class Rank extends JFrame implements MouseListener, ActionListener{
 		setVisible(true);
 
 	}
+	
 	//오른쪽 랭킹 테이블에 대한 코드
 	private void RankTable() {
 		JPanel RankTable_Panel = new JPanel();
@@ -136,8 +140,8 @@ public class Rank extends JFrame implements MouseListener, ActionListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		
 	}
+	
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JTable jtable =(JTable) e.getSource();
@@ -147,16 +151,19 @@ public class Rank extends JFrame implements MouseListener, ActionListener{
 		System.out.println(model.getValueAt(row, col));
 		
 	}
+	
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
@@ -170,6 +177,47 @@ public class Rank extends JFrame implements MouseListener, ActionListener{
 			this.dispose();
 			Server s = new Server("서버화면", ID, NICK);
 		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);			
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -57,7 +57,7 @@ public class Chat {
 			System.out.println("연결을 기다리는 중..\n");
 			
 			while(true) {
-				socket = listener.accept();
+				socket = listener.accept();  // 소켓 연결
 				System.out.println("연결 성공!\n");
 				
 				receiveThread = new ReceiveThread(socket, this, ID);

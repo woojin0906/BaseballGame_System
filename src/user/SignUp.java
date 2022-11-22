@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,9 +23,9 @@ import javax.swing.JTextField;
 import db.dbInfo;
 import game.Login;
 
-public class SignUp extends JFrame implements ActionListener, MouseListener{
+public class SignUp extends JFrame implements ActionListener, MouseListener, WindowListener {
 	
-	private Font mainFont, subFont;
+	private Font mainFont, subFont, IDFont;
 	private JTextField SignUp_textfield_id, SignUp_textfield_Nickname, SignUp_textfield_Email;
 	private JPasswordField SignUp_pw, SignUp_pwcheck;
 	private String id, nickName, email;
@@ -32,20 +34,24 @@ public class SignUp extends JFrame implements ActionListener, MouseListener{
 	private int count;
 	private Color blue, skyBlue;
 
+	public static void main(String[] args) {
+		new SignUp("dd");
+	}
 	public SignUp(String title) {
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocation(300, 300);
-		//setSize(380, 500);
 		setSize(530, 430);
 		setLayout(new BorderLayout());
 		setResizable(false); // 화면 크기 조절 불가능
+		addWindowListener(this);
 		
 		blue = new Color(26, 67, 141);
 		skyBlue= new Color(218, 227, 238);
 		
+		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);
 		mainFont = new Font("Koverwatch", Font.PLAIN, 20);
 		subFont = new Font("Koverwatch", Font.PLAIN, 15);
+		
 		SignUpPannel();
 		setVisible(true);
 		
@@ -60,50 +66,50 @@ public class SignUp extends JFrame implements ActionListener, MouseListener{
 		//2022-10-23 신규유저 라벨
 		JLabel Signup_title = new JLabel("신규 유저");
 		Signup_title.setBounds(45, 25, 200, 30);
-		Signup_title.setForeground(Color.WHITE);
+		Signup_title.setForeground(Color.BLACK);
 		Signup_title.setFont(new Font("Koverwatch", Font.BOLD, 30));
 		SignUp_Pannel.add(Signup_title);
 		
 		//2022-10-23 아이디 라벨
 		JLabel SignUp_ID = new JLabel("아이디");
-		SignUp_ID.setForeground(Color.white);
+		SignUp_ID.setForeground(Color.DARK_GRAY);
 		SignUp_ID.setBounds(90, 80, 100, 30);
 		SignUp_ID.setFont(mainFont);
 		SignUp_Pannel.add(SignUp_ID);
 		
 		//2022-10-23 비밀번호 라벨
 		JLabel SignUp_PW = new JLabel("비밀번호");
-		SignUp_PW.setForeground(Color.white);
+		SignUp_PW.setForeground(Color.DARK_GRAY);
 		SignUp_PW.setBounds(90, 130, 100, 30);
 		SignUp_PW.setFont(mainFont);
 		SignUp_Pannel.add(SignUp_PW);
 		
 		//2022-10-23 비밀번호 확인 라벨
 		JLabel SignUp_PW_Check = new JLabel("비밀번호 확인");
-		SignUp_PW_Check.setForeground(Color.white);
+		SignUp_PW_Check.setForeground(Color.DARK_GRAY);
 		SignUp_PW_Check.setBounds(90, 180, 100, 30);
 		SignUp_PW_Check.setFont(mainFont);
 		SignUp_Pannel.add(SignUp_PW_Check);
 		
 		//2022-10-23 닉네임 라벨
 		JLabel SignUp_Nickname = new JLabel("닉네임");
-		SignUp_Nickname.setForeground(Color.white);
+		SignUp_Nickname.setForeground(Color.DARK_GRAY);
 		SignUp_Nickname.setBounds(90, 230, 100, 30);
 		SignUp_Nickname.setFont(mainFont);
 		SignUp_Pannel.add(SignUp_Nickname);
 		
 		//2022-10-23 이메일 라벨
 		JLabel SignUp_Email = new JLabel("이메일");
-		SignUp_Email.setForeground(Color.white);
+		SignUp_Email.setForeground(Color.DARK_GRAY);
 		SignUp_Email.setBounds(90, 280, 100, 30);
-		SignUp_Email.setFont(mainFont);
+		SignUp_Email.setFont(IDFont);
 		SignUp_Pannel.add(SignUp_Email);
 		
 		//2022-10-23 취소 버튼 
 		exit_btn = new JButton("취소");
 		exit_btn.setBounds(440, 10, 65, 30);
 		exit_btn.setFont(new Font("Koverwatch", Font.BOLD, 20));
-		exit_btn.setForeground(Color.WHITE);
+		exit_btn.setForeground(Color.DARK_GRAY);
 		exit_btn.setBackground(blue);
 		exit_btn.setBorderPainted(false);
 		exit_btn.setOpaque(false);
@@ -122,7 +128,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener{
 		//2022-10-24 아이디 텍스트
 		SignUp_textfield_id =new JTextField();
 		SignUp_textfield_id.setBounds(210, 80, 200, 30);
-		SignUp_textfield_id.setFont(subFont);
+		SignUp_textfield_id.setFont(IDFont);
 		SignUp_textfield_id.addActionListener(this);
 		SignUp_textfield_id.addMouseListener(this);
 		SignUp_Pannel.add(SignUp_textfield_id);
@@ -149,7 +155,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener{
 		//2022-10-24 이메일 텍스트
 		SignUp_textfield_Email =new JTextField();
 		SignUp_textfield_Email.setBounds(210, 280, 200, 30);
-		SignUp_textfield_Email.setFont(subFont);
+		SignUp_textfield_Email.setFont(IDFont);
 		SignUp_textfield_Email.addActionListener(this);
 		SignUp_Pannel.add(SignUp_textfield_Email);
 		
@@ -253,6 +259,47 @@ public class SignUp extends JFrame implements ActionListener, MouseListener{
 
 	@Override
 	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);		
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}

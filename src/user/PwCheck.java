@@ -11,6 +11,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -24,24 +26,25 @@ import javax.swing.JTextField;
 import db.dbInfo;
 import game.Login;
 
-public class PwCheck extends JFrame implements ActionListener, MouseListener, KeyListener{
+public class PwCheck extends JFrame implements ActionListener, MouseListener, KeyListener, WindowListener{
 	
-	private Font font, btnFont;
+	private Font font, btnFont, IDFont;
 	private JButton btnIdSearch, btnCheck, btnCancel;
 	private JTextField tfEmail, tfId;
 	private Color blue, skyBlue;
 	
 	public PwCheck(String title) {
 		setTitle(title);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(342, 202);
 		setLayout(new BorderLayout());
 		setLocation(500, 500);
 		setResizable(false); // 화면 크기 조절 불가능
+		addWindowListener(this);
 		
 		blue = new Color(26, 67, 141);
 		skyBlue= new Color(218, 227, 238);
 		
+		IDFont = new Font("넥슨 풋볼고딕 B", Font.PLAIN, 16);
 		btnFont = new Font("Koverwatch", Font.PLAIN, 16);
 		font = new Font("Koverwatch", Font.PLAIN, 14);
 		
@@ -76,7 +79,7 @@ public class PwCheck extends JFrame implements ActionListener, MouseListener, Ke
 		
         // 비밀번호 재설정 텍스트 필드(아이디) 출력
 		tfId = new JTextField("아이디");
-		tfId.setFont(font);
+		tfId.setFont(IDFont);
 		tfId.setBounds(38, 55, 160, 30);
 		tfId.setBorder(BorderFactory.createEmptyBorder());
 		tfId.setFocusTraversalKeysEnabled(false);
@@ -87,7 +90,7 @@ public class PwCheck extends JFrame implements ActionListener, MouseListener, Ke
         
 		// 비밀번호 재설정 텍스트 필드(이메일) 출력
 		tfEmail = new JTextField("이메일");
-		tfEmail.setFont(font);
+		tfEmail.setFont(IDFont);
 		tfEmail.setBorder(BorderFactory.createEmptyBorder());
 		tfEmail.setBounds(38, 98, 160, 28);
 		tfEmail.addActionListener(this);	
@@ -193,6 +196,47 @@ public class PwCheck extends JFrame implements ActionListener, MouseListener, Ke
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);			
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
