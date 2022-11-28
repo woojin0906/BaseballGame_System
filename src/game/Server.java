@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
+import chat.MultiClientChat;
 import db.DBRank;
 import user.Mypage;
 
@@ -25,11 +26,15 @@ import user.Mypage;
 		private Color SeverbtnColor;
 		private Font mainFont, startFont;
 		private JPanel leftpanel;
-		private JButton serverroom1, logout_btn, Rank_btn, Mypage_btn, Notice_btn;
+		private JButton serverroom1, logout_btn, Rank_btn, Mypage_btn, Notice_btn, MultiChat_btn;
 		private String ID,name;
 		private JLabel UserName;
 		private Color blue, skyBlue;
 		private Game game;
+		
+		public static void main(String[] args) {
+			Server s = new Server(null, null, null);
+		}
 		
 		public Server(String title, String ID, String name) {
 			this.ID=ID;
@@ -161,14 +166,6 @@ import user.Mypage;
 				Rank rk = new Rank("랭킹 화면", ID, name);
 				rk.setLocationRelativeTo(this);
 				this.dispose();
-			}else if(obj == Notice_btn) {
-				if(JOptionPane.showConfirmDialog(this, 
-                        "고객센터로 전화하시겠습니까?",
-                        "공지",
-                        JOptionPane.YES_NO_OPTION
-                        ) == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(this, "고객센터 전화번호는 032-777-7777 입니다.", "고객센테 안내", JOptionPane.INFORMATION_MESSAGE);
-                    }
 			}
 			else if(obj == Notice_btn) {
 				if(JOptionPane.showConfirmDialog(this, 
@@ -178,6 +175,18 @@ import user.Mypage;
                         ) == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(this, "고객센터 전화번호는 032-777-7777 입니다.", "고객센테 안내", JOptionPane.INFORMATION_MESSAGE);
                     }
+			}
+			else if(obj == MultiChat_btn) {
+				
+				Thread thread = new Thread(new Runnable() {
+								
+					@Override
+					public void run() {
+						MultiClientChat multiClientChat = new MultiClientChat("멀티채팅");
+						multiClientChat.setSocket();										
+					}
+				});
+				thread.start();
 			}
 		}
 		@Override
