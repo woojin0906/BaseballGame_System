@@ -67,7 +67,7 @@ public class ReceiveThread extends Thread {
 					int ball=0;
 					
 					sendAll("----------------------------");
-					sendAll("세자리 수를 입력하세요(ex: 1 2 3)");
+					sendAll("세개의 수를 입력하세요(ex: 1 2 3)");
 					
 					String inputMsg;
 					try {
@@ -90,7 +90,7 @@ public class ReceiveThread extends Thread {
 	                        msg[1] = inputMsg.charAt(1)-'0';	// 입력받은 두 번째 문자열
 	                        msg[2] = inputMsg.charAt(2)-'0';	// 입력받은 세 번째 문자열
 	                  } else {
-	                	 	sendAll("3자리를 입력해주세요.(공백제외)");
+	                	 	sendAll("세개의 수를 입력해주세요.(공백제외)");
 	                        continue;       	// 공백 없이 3자리가 아닌 경우 메시지 보내기
 	                  }
 						

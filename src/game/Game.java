@@ -202,6 +202,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 					ta.append("연결 종료 \n");
 					JOptionPane.showMessageDialog(this, "패배ㅠㅠㅠ", "결과", JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
+					Server server = new Server("서버화면", ID, name);
 					break;
 					
 				}
@@ -211,6 +212,7 @@ public class Game extends JFrame implements ActionListener, MouseListener, KeyLi
 					ta.append("연결 종료 \n");
 					JOptionPane.showMessageDialog(this, "승리!!!", "결과", JOptionPane.INFORMATION_MESSAGE);
 					this.dispose();
+					Server server = new Server("서버화면", ID, name);
 					break;
 				}
 				if(inMessage.equals("exit")) {
