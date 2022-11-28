@@ -285,7 +285,8 @@ package chat;
 						
 					
 			} catch (IOException e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				System.out.println("클라이언트 연결 종료");
 			} finally {
 				ta.append("[" + name + UserNum + "]님이 나가셨습니다." + "\n");
 				System.out.println("[" + name + UserNum + "]님이 나가셨습니다");
@@ -308,7 +309,7 @@ package chat;
 						out.write(s + "\n");
 						out.flush();
 					} catch (IOException e) {
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
 					
 				}
