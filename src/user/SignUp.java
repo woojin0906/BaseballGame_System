@@ -84,7 +84,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener, Win
 		//2022-10-23 비밀번호 확인 라벨
 		JLabel SignUp_PW_Check = new JLabel("비밀번호 확인");
 		SignUp_PW_Check.setForeground(Color.DARK_GRAY);
-		SignUp_PW_Check.setBounds(90, 180, 100, 30);
+		SignUp_PW_Check.setBounds(90, 180, 110, 30);
 		SignUp_PW_Check.setFont(IDFont);
 		SignUp_Pannel.add(SignUp_PW_Check);
 		
