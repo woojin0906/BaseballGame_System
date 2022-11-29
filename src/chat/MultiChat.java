@@ -53,7 +53,6 @@ package chat;
 		private BufferedWriter out;
 		private Socket socket;
 		private BufferedReader in;
-		static int UserNum = 0; 
 		private Color blue, skyBlue, sky;
 		
 		public static void main(String[] args) {
@@ -154,7 +153,6 @@ package chat;
 					
 					ReceiveThread receiveThread = new ReceiveThread(socket, name);
 					receiveThread.start();
-					UserNum++;
 					
 				}
 				
@@ -269,12 +267,12 @@ package chat;
 				try {
 					name = in.readLine();
 				
-						ta.append("[" + name + UserNum + "새연결생성]" + "\n");
-						System.out.println("[" + name + UserNum + " 새연결생성]");
+						ta.append("[" + name + "새연결생성]" + "\n");
+						System.out.println("[" + name + " 새연결생성]");
 						
-						ta.append("[" + name + UserNum + "]님이 들어오셨습니다." + "\n");
-						System.out.println("[" + name + UserNum + "]님이 들어오셨습니다.");
-						sendAll("[" + name + UserNum + "]님이 들어오셨습니다.");
+						ta.append("[" + name + "]님이 들어오셨습니다." + "\n");
+						System.out.println("[" + name + "]님이 들어오셨습니다.");
+						sendAll("[" + name + "]님이 들어오셨습니다.");
 						
 						while(in != null) {
 							String inputMsg = in.readLine();
@@ -288,15 +286,15 @@ package chat;
 				//e.printStackTrace();
 				System.out.println("클라이언트 연결 종료");
 			} finally {
-				ta.append("[" + name + UserNum + "]님이 나가셨습니다." + "\n");
-				System.out.println("[" + name + UserNum + "]님이 나가셨습니다");
-				sendAll("[" + name + UserNum + "]님이 나가셨습니다");
+				ta.append("[" + name + "]님이 나가셨습니다." + "\n");
+				System.out.println("[" + name + "]님이 나가셨습니다");
+				sendAll("[" + name + "]님이 나가셨습니다");
 				
 				list.remove(out);
 				try {
 					socket.close();
-					ta.append("[" + name + UserNum + " 연결종료] \n");
-					System.out.println("[" + name + UserNum + " 연결종료]");
+					ta.append("[" + name + " 연결종료] \n");
+					System.out.println("[" + name + " 연결종료]");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
