@@ -170,7 +170,9 @@ public class Mypage extends JFrame implements ActionListener, MouseListener, Key
 		add(Mypage_Pannel);
 		
 	}
-
+public static void main(String[] args) {
+	new Mypage(null, null, null);
+}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();

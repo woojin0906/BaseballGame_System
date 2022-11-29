@@ -71,28 +71,28 @@ public class SignUp extends JFrame implements ActionListener, MouseListener, Win
 		JLabel SignUp_ID = new JLabel("아이디");
 		SignUp_ID.setForeground(Color.DARK_GRAY);
 		SignUp_ID.setBounds(90, 80, 100, 30);
-		SignUp_ID.setFont(mainFont);
+		SignUp_ID.setFont(IDFont);
 		SignUp_Pannel.add(SignUp_ID);
 		
 		//2022-10-23 비밀번호 라벨
 		JLabel SignUp_PW = new JLabel("비밀번호");
 		SignUp_PW.setForeground(Color.DARK_GRAY);
 		SignUp_PW.setBounds(90, 130, 100, 30);
-		SignUp_PW.setFont(mainFont);
+		SignUp_PW.setFont(IDFont);
 		SignUp_Pannel.add(SignUp_PW);
 		
 		//2022-10-23 비밀번호 확인 라벨
 		JLabel SignUp_PW_Check = new JLabel("비밀번호 확인");
 		SignUp_PW_Check.setForeground(Color.DARK_GRAY);
 		SignUp_PW_Check.setBounds(90, 180, 100, 30);
-		SignUp_PW_Check.setFont(mainFont);
+		SignUp_PW_Check.setFont(IDFont);
 		SignUp_Pannel.add(SignUp_PW_Check);
 		
 		//2022-10-23 닉네임 라벨
 		JLabel SignUp_Nickname = new JLabel("닉네임");
 		SignUp_Nickname.setForeground(Color.DARK_GRAY);
 		SignUp_Nickname.setBounds(90, 230, 100, 30);
-		SignUp_Nickname.setFont(mainFont);
+		SignUp_Nickname.setFont(IDFont);
 		SignUp_Pannel.add(SignUp_Nickname);
 		
 		//2022-10-23 이메일 라벨
@@ -145,7 +145,7 @@ public class SignUp extends JFrame implements ActionListener, MouseListener, Win
 		//2022-10-24 닉네임 텍스트
 		SignUp_textfield_Nickname =new JTextField();
 		SignUp_textfield_Nickname.setBounds(210, 230, 200, 30);
-		SignUp_textfield_Nickname.setFont(subFont);
+		SignUp_textfield_Nickname.setFont(IDFont);
 		SignUp_textfield_Nickname.addActionListener(this);
 		SignUp_Pannel.add(SignUp_textfield_Nickname);
 				
