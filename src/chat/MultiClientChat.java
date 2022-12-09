@@ -1,5 +1,8 @@
 package chat;
-
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 다중채팅 (클라이언트)
+*/
 	import java.awt.BorderLayout;
 	import java.awt.Color;
 	import java.awt.Container;
@@ -52,8 +55,7 @@ package chat;
 			chat.setSocket();
 		}
 
-		public MultiClientChat(String title) { //, Chat chat
-			//this.chat = chat;
+		public MultiClientChat(String title) {
 			setTitle(title);
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setSize(350, 500);
@@ -125,9 +127,7 @@ package chat;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
-			// 2022-10-26 허유진 채팅 db 연결
 			if(obj == tfChat || obj == btnChat) {
-			
 				try {
 					String outMsg = tfChat.getText();
 					out.write(outMsg + "\n");

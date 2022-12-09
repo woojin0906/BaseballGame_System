@@ -1,5 +1,8 @@
 package game;
-// 서버 소켓 연결
+/* 
+ 디자인, 설계 : 전우진, 허유진
+ 클래스 : 서버 소켓 + Thread 연결
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -1,5 +1,8 @@
 package user;
-// 허유진 마이페이지
+/* 
+ 디자인, 설계 : 허유진 + 기능 : 전우진
+ 클래스 : 마이페이지
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -176,6 +179,7 @@ public static void main(String[] args) {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
+		// 전우진 기능 연결 + db 연결
 		if(obj == Mypage_btn || obj == Mypage_pw || obj == Mypage_pwcheck) {
 			char[] temp = Mypage_pw.getPassword();
 			String resultPw = "";
@@ -210,6 +214,7 @@ public static void main(String[] args) {
 		} else if(obj == exit_btn) {
 			this.dispose();
 			Server s = new Server("서버화면", ID, name);
+			s.setLocationRelativeTo(this);
 		}
 	}
 

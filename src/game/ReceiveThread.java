@@ -1,5 +1,8 @@
 package game;
-// 소켓 연결 후 서버 게임
+/* 
+ 디자인, 설계 : 전우진, 허유진
+ 클래스 : 소켓 연결 후 서버 게임용 스레드
+*/
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;

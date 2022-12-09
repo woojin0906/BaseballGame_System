@@ -1,5 +1,8 @@
 package game;
-// 클라이언트 메시지를 서버로 보내는 thread
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 클라이언트 메시지를 서버로 보내는 thread
+*/
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;

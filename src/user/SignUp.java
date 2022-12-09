@@ -1,5 +1,8 @@
 package user;
-// 허유진 회원가입
+/* 
+ 디자인, 설계 : 허유진 + 기능 : 전우진
+ 클래스 : 회원가입
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -1,5 +1,8 @@
 package user;
-// 2022.10.26 전우진 아이디 중복 디자인 구현
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 아이디 중복확인
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;

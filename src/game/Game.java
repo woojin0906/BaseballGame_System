@@ -1,5 +1,8 @@
 package game;
-// 전우진 클라이언트 게임 화면
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 클라이언트 게임 화면
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

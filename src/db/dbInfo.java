@@ -1,6 +1,8 @@
 package db;
-// 전우진 MySQL 연동
-// 회원정보
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 회원정보 MySQL 연동
+*/
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -191,6 +193,7 @@ public class dbInfo {
 							//입력한 비밀번호와 DB에 저장된 비밀번호가 일치하는지 검증
 							if(pw.equals(inputPw)) {
 								Server server = new Server("대기창", id, nickName);
+								server.setLocationRelativeTo(server);
 								Thread thread = new Thread(new Runnable() {
 
 									@Override

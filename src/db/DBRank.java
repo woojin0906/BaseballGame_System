@@ -1,5 +1,8 @@
 package db;
-// 랭킹 DB
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 랭킹 MySQL 연동
+*/
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

@@ -1,5 +1,8 @@
 package game;
-// 게임 대기창 디자인 구현
+/* 
+디자인, 설계 : 전우진, 허유진
+클래스 : 게임 대기 화면
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -26,7 +29,7 @@ import user.Mypage;
 		private Color SeverbtnColor;
 		private Font mainFont, startFont;
 		private JPanel leftpanel;
-		private JButton serverroom1, logout_btn, Rank_btn, Mypage_btn, Notice_btn, MultiChat_btn;
+		private JButton gameStart, logout_btn, Rank_btn, Mypage_btn, Notice_btn, MultiChat_btn;
 		private String ID,name;
 		private JLabel UserName;
 		private Color blue, skyBlue;
@@ -113,15 +116,15 @@ import user.Mypage;
 			leftpanel.add(Notice_btn);
 			
 			//2022-10-23 서버 1
-			serverroom1 = new JButton("게임 시작");
-			serverroom1.setBounds(215, 150, 250, 100);
-			serverroom1.setBackground(SeverbtnColor);
-			serverroom1.setFont(startFont);
-			serverroom1.setBorderPainted(false);
-			serverroom1.setOpaque(false);
-			serverroom1.setForeground(Color.WHITE);
-			serverroom1.addActionListener(this);
-			leftpanel.add(serverroom1);
+			gameStart = new JButton("게임 시작");
+			gameStart.setBounds(215, 150, 250, 100);
+			gameStart.setBackground(SeverbtnColor);
+			gameStart.setFont(startFont);
+			gameStart.setBorderPainted(false);
+			gameStart.setOpaque(false);
+			gameStart.setForeground(Color.WHITE);
+			gameStart.addActionListener(this);
+			leftpanel.add(gameStart);
 			
 			//2022-10-23 뒷 배경 이미지 
 			ImageIcon Serverbackground_img = new ImageIcon("images/ServerBackground.jpg");
@@ -136,7 +139,7 @@ import user.Mypage;
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
 			// 2022-10-26 전우진 각 프레임 연결
-			if(obj == serverroom1) {
+			if(obj == gameStart) {
 				this.dispose();
 				game = new Game("클라이언트 게임 시작 화면",ID);
 				System.out.println(ID);
@@ -175,18 +178,6 @@ import user.Mypage;
                         ) == JOptionPane.YES_OPTION) {
                     JOptionPane.showMessageDialog(this, "고객센터 전화번호는 032-777-7777 입니다.", "고객센테 안내", JOptionPane.INFORMATION_MESSAGE);
                     }
-			}
-			else if(obj == MultiChat_btn) {
-				
-				Thread thread = new Thread(new Runnable() {
-								
-					@Override
-					public void run() {
-						MultiClientChat multiClientChat = new MultiClientChat("멀티채팅");
-						multiClientChat.setSocket();										
-					}
-				});
-				thread.start();
 			}
 		}
 		@Override

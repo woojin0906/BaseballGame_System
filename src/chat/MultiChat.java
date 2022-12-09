@@ -1,5 +1,8 @@
 package chat;
-
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 다중채팅 (서버)
+*/
 	import java.awt.BorderLayout;
 	import java.awt.Color;
 	import java.awt.Container;
@@ -86,6 +89,7 @@ package chat;
 			setVisible(true);
 
 		}
+		
 		private void setCenter() {
 			// 채팅창 채팅 표시 패널
 			JPanel panelCenter = new JPanel();
@@ -172,7 +176,6 @@ package chat;
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			Object obj = e.getSource();
-			// 2022-10-26 허유진 채팅 db 연결
 			if(obj == btnChat) {
 				
 				try {
@@ -265,7 +268,7 @@ package chat;
 			public void run() {
 			name = "";
 				try {
-					name = in.readLine();
+					name = in.readLine(); // 채팅의 첫 시작은 닉네임 입력
 				
 						ta.append("[" + name + "새연결생성]" + "\n");
 						System.out.println("[" + name + " 새연결생성]");

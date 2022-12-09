@@ -1,5 +1,8 @@
 package game;
-// 허유진 랭킹 화면
+/* 
+ 디자인, 설계 : 허유진
+ 클래스 : 랭킹
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

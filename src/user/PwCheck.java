@@ -1,5 +1,8 @@
 package user;
-// 2022.10.22 전우진 비밀번호 재설정 디자인 구현
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 비밀번호 찾기
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;

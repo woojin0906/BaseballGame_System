@@ -1,5 +1,8 @@
 package game;
-//2022-10-07 전우진 로그인 디자인 구현
+/* 
+ 디자인, 설계 : 전우진
+ 클래스 : 로그인
+*/
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
